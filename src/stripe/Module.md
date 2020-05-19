@@ -1,15 +1,15 @@
 # Stripe Module
 
-The Ballerina Stripe connector allows you to work with Stripe customers, invoices, billing plans, charges, products and subscriptions through the Stripe API.
+The Ballerina Stripe connector allows you to work with Stripe customers, invoices, billing plans, charges, products, and subscriptions through the Stripe API.
 The Stripe API uses API keys to authenticate. You can view and manage your API keys in the [Stripe Dashboard](https://stripe.com/login?redirect=/account/apikeys). 
 
-1. **stripe:Account** - Represents your Stripe account. It holds the credentials to connect with the Stripe account. It also acts as the base object which can be used to retrieve other collection objects.
-2. **stripe:Customers** - Represents customers in Stripe. This acts as a client to create, retrieve, update, delete and list customers in Stripe Account.
-3. **stripe:Charges** - Represents Charges in Stripe. This acts as a client to create, retrieve, update, capture and list charges in Stripe Account.
-4. **stripe:Invoices** - Represents Invoices in Stripe. This acts as a client to create, retrieve, update, delete, finalize, pay, send for mannual payment, void, mark uncollectible and list invoices in Stripe Account
-5. **stripe.Plans** - Represents Billing Plans in Stripe. This acts as a client to create, retrieve, update, delete and list plans in Stripe Account.
-6. **stripe.Products** - Represents Products in Stripe. This acts as a client to create, retrieve, update, delete and list products in Stripe Account.
-7. **stripe.Subscriptions** - Represents Subscriptions in Stripe. This acts as a client to create, retrieve, update, delete and list subscriptions in Stripe Account.
+1. **stripe:Account** - Represents your Stripe account. It holds the credentials to connect with the Stripe account. It also acts as the base object, which can be used to retrieve other collection objects.
+2. **stripe:Customers** - Represents the Customers in Stripe. This acts as a client to create, retrieve, update, delete, and list the customers in a Stripe Account.
+3. **stripe:Charges** - Represents the Charges in Stripe. This acts as a client to create, retrieve, update, capture, and list the charges in a Stripe Account.
+4. **stripe:Invoices** - Represents the Invoices in Stripe. This acts as a client to create, retrieve, update, delete, finalize, pay, send for manual payment, void, mark uncollectible, and list the invoices in a Stripe Account.
+5. **stripe.Plans** - Represents the Billing Plans in Stripe. This acts as a client to create, retrieve, update, delete, and list the plans in a Stripe Account.
+6. **stripe.Products** - Represents the Products in Stripe. This acts as a client to create, retrieve, update, delete, and list the products in a Stripe Account.
+7. **stripe.Subscriptions** - Represents the Subscriptions in Stripe. This acts as a client to create, retrieve, update, delete, and list the subscriptions in a Stripe Account.
 
 ## Compatibility
 |                     |    Version     |
@@ -21,8 +21,8 @@ The Stripe API uses API keys to authenticate. You can view and manage your API k
 **Creating a Stripe account and obtaining API keys**
 
 1. Create a new Stripe account on [dashboard.stripe.com](https://dashboard.stripe.com/register).
-2. Once you create the account you can get the API keys. 
-3. View the Secret key and copy it to use as the token for Stripe client connector.
+2. Once you create the account, you can get the API keys. 
+3. View the Secret key and copy it to use as the token for the Stripe client connector.
 
 **Create the base Stripe object**
 
@@ -30,9 +30,9 @@ First, import the `ballerinax/stripe` module into the Ballerina project.
 ```ballerina
 import ballerinax/stripe;
 ```
-Instantiate the `stripe:Account` by giving the Stripe API key. 
+Instantiate the `stripe:Account` by providing the Stripe API key. 
 
-You cancreate the top-most Stripe Account object as follows. 
+You can create the top-most Stripe Account object as follows. 
 ```ballerina
 stripe:Account stripeAccount = new (<secret-key>);
 ```
@@ -74,7 +74,7 @@ if (response is stripe:Customer) {
 
 **Stripe operations related to `Charges`**
 
-The `capture` remote function can be used to capture the payment of an existing, uncaptured, charge. 
+The `capture` remote function can be used to capture the payment of an existing, uncaptured charge. 
 
 ```ballerina
 stripe:Charges charges = stripeAccount.charges();
@@ -91,7 +91,7 @@ if (capturedCharge is stripe:Charge) {
 
 **Stripe operations related to `Invoices`**
 
-The `create` remote function can be used to create a draft invoice for a given customer.. 
+The `create` remote function can be used to create a draft invoice for a given customer.
 
 ```ballerina
 stripe:Invoice invoiceParams = {

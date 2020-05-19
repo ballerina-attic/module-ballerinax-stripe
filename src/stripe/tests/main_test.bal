@@ -19,7 +19,7 @@ import ballerina/system;
 
 string token = system:getEnv("stripeToken");
 
-Account stripeClient = new ("sk_test_ba14gpQ4JMNy5sEAvmazyLAk00t0h5M9hl");
+Account stripeClient = new (token);
 Customers customers = stripeClient.customers();
 Products products = stripeClient.products();
 Plans plans = stripeClient.plans();

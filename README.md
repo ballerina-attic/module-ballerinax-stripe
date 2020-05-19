@@ -1,6 +1,6 @@
 # module-ballerinax-stripe
 
-This module allows you to access the Stripe API through Ballerina. Stripe is a service that allows users to accept payments online, specifically developers. With the Stripe application, users can keep track of payments, search past payments, create recurring charges, and keep track of customers.
+This module allows you to access the Stripe API through Ballerina. Stripe is a service that allows users (specifically developers) to accept payments online. With the Stripe application, users can keep track of payments, search past payments, create recurring charges, and keep track of customers.
 
 The following sections provide you details on how to use the Stripe connector.
 
@@ -18,13 +18,13 @@ The following sections provide you details on how to use the Stripe connector.
 ## Feature Overview
 
 There are 7 collections provided by Ballerina for the moment to interact with different API groups of the Stripe API. 
-1. **stripe:Account** - Represents your Stripe account. It holds the credentials to connect with the Stripe account. It also acts as the base object which can be used to retrieve other collection objects.
-2. **stripe:Customers** - Represents customers in Stripe. This acts as a client to create, retrieve, update, delete and list customers in Stripe Account.
-3. **stripe:Charges** - Represents Charges in Stripe. This acts as a client to create, retrieve, update, capture and list charges in Stripe Account.
-4. **stripe:Invoices** - Represents Invoices in Stripe. This acts as a client to create, retrieve, update, delete, finalize, pay, send for mannual payment, void, mark uncollectible and list invoices in Stripe Account
-5. **stripe.Plans** - Represents Billing Plans in Stripe. This acts as a client to create, retrieve, update, delete and list plans in Stripe Account.
-6. **stripe.Products** - Represents Products in Stripe. This acts as a client to create, retrieve, update, delete and list products in Stripe Account.
-7. **stripe.Subscriptions** - Represents Subscriptions in Stripe. This acts as a client to create, retrieve, update, delete and list subscriptions in Stripe Account.
+1. **stripe:Account** - Represents your Stripe account. It holds the credentials to connect with the Stripe account. It also acts as the base object, which can be used to retrieve other collection objects.
+2. **stripe:Customers** - Represents the Customers in Stripe. This acts as a client to create, retrieve, update, delete, and list the customers in a Stripe Account.
+3. **stripe:Charges** - Represents the Charges in Stripe. This acts as a client to create, retrieve, update, capture, and list the charges in a Stripe Account.
+4. **stripe:Invoices** - Represents the Invoices in Stripe. This acts as a client to create, retrieve, update, delete, finalize, pay, send for manual payment, void, mark uncollectible, and list the invoices in a Stripe Account.
+5. **stripe.Plans** - Represents the Billing Plans in Stripe. This acts as a client to create, retrieve, update, delete, and list the plans in a Stripe Account.
+6. **stripe.Products** - Represents the Products in Stripe. This acts as a client to create, retrieve, update, delete, and list the products in a Stripe Account.
+7. **stripe.Subscriptions** - Represents the Subscriptions in Stripe. This acts as a client to create, retrieve, update, delete, and list the subscriptions in a Stripe Account.
 
 ## Getting Started
 
