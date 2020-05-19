@@ -27,7 +27,7 @@ public type Customers client object {
     # Creates a customer.
     #
     # + customer - Customer configurations
-    # + return - `Customer` record, or else a `stripe:Error` in case of a failure
+    # + return - `Customer` record or else a `stripe:Error` in case of a failure
     public remote function create(Customer customer) returns @tainted Customer|Error {
         string queryString = createQuery(EMPTY, customer);
         http:Response response = check createPostRequest(self.customers, queryString, self.path);
@@ -37,7 +37,7 @@ public type Customers client object {
     # Retrieves a customer.
     #
     # + customerId - Customer ID
-    # + return - `Customer` record, or else a `stripe:Error` in case of a failure
+    # + return - `Customer` record or else a `stripe:Error` in case of a failure
     public remote function retrieve(string customerId) returns @tainted Customer|Error {
         string path = self.path + "/" + customerId;
         http:Response response = check createGetRequest(self.customers, path);
@@ -48,7 +48,7 @@ public type Customers client object {
     #
     # + customerId - Customer ID
     # + customer - Customer configurations
-    # + return - `Customer` record, or else a `stripe:Error` in case of a failure
+    # + return - `Customer` record or else a `stripe:Error` in case of a failure
     public remote function update(string customerId, Customer customer) returns @tainted Customer|Error {
         string path = self.path + "/" + customerId;
         string queryString = createQuery(EMPTY, customer);
@@ -68,7 +68,7 @@ public type Customers client object {
 
     # Lists all customers.
     #
-    # + return - An array of `Customer` records, or else a `stripe:Error` in case of a failure
+    # + return - An array of `Customer` records or else a `stripe:Error` in case of a failure
     public remote function list() returns @tainted Customer[]|Error {
         http:Response response = check createGetRequest(self.customers, self.path);
         return mapToCustomers(response);

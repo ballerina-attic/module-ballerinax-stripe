@@ -28,7 +28,7 @@ public type Products client object {
    # Creates a product.
    #
    # + product - Product configurations
-   # + return - `Product` record, or else a `stripe:Error` in case of a failure
+   # + return - `Product` record or else a `stripe:Error` in case of a failure
    public remote function create(Product product) returns @tainted Product|Error {
      string queryString = createQuery(EMPTY, product);
      http:Response response = check createPostRequest(self.products, queryString, self.path);
@@ -38,7 +38,7 @@ public type Products client object {
    # Retrieves a product.
    #
    # + productId - Product ID
-   # + return - `Product` record, or else a `stripe:Error` in case of a failure
+   # + return - `Product` record or else a `stripe:Error` in case of a failure
    public remote function retrieve(string productId) returns @tainted Product|Error {
      string path = self.path + "/" + productId;
      http:Response response = check createGetRequest(self.products, path);
@@ -49,7 +49,7 @@ public type Products client object {
    #
    # + productId - Product ID
    # + product - Product configurations
-   # + return - `Product` record, or else a `stripe:Error` in case of a failure
+   # + return - `Product` record or else a `stripe:Error` in case of a failure
    public remote function update(string productId, Product product) returns @tainted Product|Error {
      string path = self.path + "/" + productId;
      string queryString = createQuery(EMPTY, product);
@@ -69,7 +69,7 @@ public type Products client object {
  
    # Lists all products.
    #
-   # + return - An array of `Product` records, or else a `stripe:Error`
+   # + return - An array of `Product` records or else a `stripe:Error`
    public remote function list() returns @tainted Product[]|Error {
      http:Response response = check createGetRequest(self.products, self.path);
      return mapToProducts(response);

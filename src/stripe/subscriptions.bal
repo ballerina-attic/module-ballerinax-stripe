@@ -28,7 +28,7 @@ public type Subscriptions client object {
    # Creates a subscription.
    #
    # + subscription - Subscription configurations
-   # + return - `Subscription` record, or else a `stripe:Error` in case of a failure
+   # + return - `Subscription` record or else a `stripe:Error` in case of a failure
    public remote function create(Subscription subscription) returns @tainted Subscription|Error {
       string queryString = createQuery(EMPTY, subscription);
       queryString = stringutils:replace(queryString, SUBSCRIPTION_ITEMS, ITEMS);
@@ -39,7 +39,7 @@ public type Subscriptions client object {
    # Retrieves a subscription.
    #
    # + subscriptionId - Subscription ID
-   # + return - `Subscription` record, or else a `stripe:Error` in case of a failure
+   # + return - `Subscription` record or else a `stripe:Error` in case of a failure
    public remote function retrieve(string subscriptionId) returns @tainted Subscription|Error {
       string path = self.path + "/" + subscriptionId;
       http:Response response = check createGetRequest(self.subscriptions, path);
@@ -50,7 +50,7 @@ public type Subscriptions client object {
    #
    # + subscriptionId - Subscription ID
    # + subscription - Subscription configurations
-   # + return - `Subscription` record, or else a `stripe:Error` in case of a failure
+   # + return - `Subscription` record or else a `stripe:Error` in case of a failure
    public remote function update(string subscriptionId, Subscription subscription) returns @tainted Subscription|Error {
       string path = self.path + "/" + subscriptionId;
       string queryString = createQuery(EMPTY, subscription);
@@ -71,7 +71,7 @@ public type Subscriptions client object {
 
    # Lists all subscriptions.
    #
-   # + return - An array of `Subscription` records, or else a `stripe:Error` in case of a failure
+   # + return - An array of `Subscription` records or else a `stripe:Error` in case of a failure
    public remote function list() returns @tainted Subscription[]|Error {
       http:Response response = check createGetRequest(self.subscriptions, self.path);
       return mapToSubscriptions(response);

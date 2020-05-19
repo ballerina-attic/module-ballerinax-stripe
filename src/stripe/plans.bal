@@ -27,7 +27,7 @@ public type Plans client object {
    # Creates a plan.
    #
    # + plan - Billing plan configurations
-   # + return - `Plan` record, or else a `stripe:Error` in case of a failure
+   # + return - `Plan` record or else a `stripe:Error` in case of a failure
    public remote function create(Plan plan) returns @tainted Plan|Error {
         string queryString = createQuery(EMPTY, plan);
         http:Response response = check createPostRequest(self.plans, queryString, self.path);
@@ -37,7 +37,7 @@ public type Plans client object {
    # Retrieves a plan.
    #
    # + planId - Plan ID
-   # + return - `Plan` record, or else a `stripe:Error` in case of a failure
+   # + return - `Plan` record or else a `stripe:Error` in case of a failure
    public remote function retrieve(string planId) returns @tainted Plan|Error {
         string path = self.path + "/" + planId;
         http:Response response = check createGetRequest(self.plans, path);
@@ -48,7 +48,7 @@ public type Plans client object {
    #
    # + planId - Plan ID
    # + plan - Plan configurations
-   # + return - `Plan` record, or else a `stripe:Error` in case of a failure
+   # + return - `Plan` record or else a `stripe:Error` in case of a failure
    public remote function update(string planId, Plan plan) returns @tainted Plan|Error {
         string path = self.path + "/" + planId;
         string queryString = createQuery(EMPTY, plan);
@@ -68,7 +68,7 @@ public type Plans client object {
  
    # Lists all plans.
    #
-   # + return - An array of `Plan` records, or else a `stripe:Error`
+   # + return - An array of `Plan` records or else a `stripe:Error`
    public remote function list() returns @tainted Plan[]|Error {
         http:Response response = check createGetRequest(self.plans, self.path);
         return mapToPlans(response);

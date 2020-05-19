@@ -29,7 +29,7 @@ public type Charges client object {
     # Creates a charge.
     #
     # + charge - Charge configurations
-    # + return - `Charge` record, or else a `stripe:Error` in case of a failure
+    # + return - `Charge` record or else a `stripe:Error` in case of a failure
     public remote function create(Charge charge) returns @tainted Charge|Error {
         string queryString = createQuery(EMPTY, charge);
         queryString = stringutils:replace(queryString, SOURCE_ID, SOURCE);
@@ -40,7 +40,7 @@ public type Charges client object {
     # Retrieves a charge.
     #
     # + chargeId - Charge ID
-    # + return - `Charge` record, or else a `stripe:Error` in case of a failure
+    # + return - `Charge` record or else a `stripe:Error` in case of a failure
     public remote function retrieve(string chargeId) returns @tainted Charge|Error {
         string path = self.path + "/" + chargeId;
         http:Response response = check createGetRequest(self.charges, path);
@@ -51,7 +51,7 @@ public type Charges client object {
     #
     # + chargeId - Charge ID
     # + charge - Charge configurations
-    # + return - `Charge` record, or else a `stripe:Error` in case of a failure
+    # + return - `Charge` record or else a `stripe:Error` in case of a failure
     public remote function update(string chargeId, Charge charge) returns @tainted Charge|Error {
         string path = self.path + "/" + chargeId;
         string queryString = createQuery(EMPTY, charge);
@@ -76,7 +76,7 @@ public type Charges client object {
 
     # Lists all charges.
     #
-    # + return - An array of `Charge` records, or else a `stripe:Error` for non-existant customer IDs
+    # + return - An array of `Charge` records or else a `stripe:Error` for non-existant customer IDs
     public remote function list() returns @tainted Charge[]|Error {
         http:Response response = check createGetRequest(self.charges, self.path);
         return mapToCharges(response);
