@@ -76,7 +76,7 @@ public type Charges client object {
 
     # Lists all charges.
     #
-    # + return - An array of `Charge` records or else a `stripe:Error` for non-existant customer IDs
+    # + return - An array of `Charge` records or else a `stripe:Error` for non-existent customer IDs
     public remote function list() returns @tainted Charge[]|Error {
         http:Response response = check createGetRequest(self.charges, self.path);
         return mapToCharges(response);

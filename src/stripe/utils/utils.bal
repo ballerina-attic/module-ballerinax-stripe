@@ -16,6 +16,7 @@
 
 import ballerina/encoding;
 import ballerina/http;
+
 function getEncodedUri(string value) returns string {
     string|error encoded = encoding:encodeUriComponent(value, UTF8);
     if (encoded is string) {

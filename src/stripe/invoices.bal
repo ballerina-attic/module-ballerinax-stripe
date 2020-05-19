@@ -84,7 +84,7 @@ public type Invoices client object {
     #
     # + invoiceId - Invoice ID
     # + invoicePay - Parameters to be used when paying an invoice
-    # + return - `Invoice` record or a stripe:Error in case of a failure
+    # + return - `Invoice` record or a `stripe:Error` in case of a failure
     public remote function pay(string invoiceId, InvoicePay? invoicePay = ()) returns @tainted Invoice|Error {
         string invoicePayQuery = EMPTY;
         string path = self.path + "/" + invoiceId + "/pay";
@@ -98,7 +98,7 @@ public type Invoices client object {
     # Sends an invoice for manual payment.
     #
     # + invoiceId - Invoice ID
-    # + return - `Invoice` record or a stripe:Error in case of a failure
+    # + return - `Invoice` record or a `stripe:Error` in case of a failure
     public remote function sendForMannualPayment(string invoiceId) returns @tainted Invoice|Error {
         string path = self.path + "/" + invoiceId + "/send";
         http:Response response = check createPostRequest(self.invoices, EMPTY, path);
@@ -108,7 +108,7 @@ public type Invoices client object {
     # Voids an invoice.
     #
     # + invoiceId - Invoice ID
-    # + return - `Invoice` record or a stripe:Error in case of a failure
+    # + return - `Invoice` record or a `stripe:Error` in case of a failure
     public remote function void(string invoiceId) returns @tainted Invoice|Error {
         string path = self.path + "/" + invoiceId + "/void";
         http:Response response = check createPostRequest(self.invoices, EMPTY, path);
@@ -118,7 +118,7 @@ public type Invoices client object {
     # Marks an invoice as uncollectible.
     #
     # + invoiceId - Invoice ID
-    # + return - `Invoice` record or a stripe:Error in case of a failure
+    # + return - `Invoice` record or a `stripe:Error` in case of a failure
     public remote function markInvoiceUncollectible(string invoiceId) returns @tainted Invoice|Error {
         string path = self.path + "/" + invoiceId + "/mark_uncollectible";
         http:Response response = check createPostRequest(self.invoices, EMPTY, path);
@@ -127,7 +127,7 @@ public type Invoices client object {
 
     # Lists all invoices.
     #
-    # + return - An array of `Invoice` records, or else a `stripe:Error` for non-existant customer IDs
+    # + return - An array of `Invoice` records, or else a `stripe:Error` in case of a failure
     public remote function list() returns @tainted Invoice[]|Error {
         http:Response response = check createGetRequest(self.invoices, self.path);
         return mapToInvoices(response);
