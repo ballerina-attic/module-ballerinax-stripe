@@ -71,7 +71,7 @@ public type Subscriptions client object {
 
    # Lists all subscriptions.
    #
-   # + return - An array of `Subscription` records, if no subscriptions are available the resulting record will be empty or else a `stripe:Error`
+   # + return - An array of `Subscription` records, or else a `stripe:Error` in case of a failure
    public remote function list() returns @tainted Subscription[]|Error {
       http:Response response = check createGetRequest(self.subscriptions, self.path);
       return mapToSubscriptions(response);

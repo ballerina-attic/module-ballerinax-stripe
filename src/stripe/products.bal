@@ -69,7 +69,7 @@ public type Products client object {
  
    # Lists all products.
    #
-   # + return - An array of `Product` records, if no products are available the resulting record will be empty or else a `stripe:Error`
+   # + return - An array of `Product` records, or else a `stripe:Error`
    public remote function list() returns @tainted Product[]|Error {
      http:Response response = check createGetRequest(self.products, self.path);
      return mapToProducts(response);

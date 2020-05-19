@@ -56,7 +56,7 @@ function createDeleteRequest(http:Client stripeClient, string path) returns http
 }
 
 function setResError(error errorResponse) returns Error {
-    return Error(message = "Error received from the stripe server", cause = errorResponse);
+    return Error(message = "Error received from the Stripe server", cause = errorResponse);
 }
 
 function setJsonResError(error errorResponse) returns Error {

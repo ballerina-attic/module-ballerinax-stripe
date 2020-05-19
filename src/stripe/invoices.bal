@@ -127,7 +127,7 @@ public type Invoices client object {
 
     # Lists all invoices.
     #
-    # + return - An array of `Invoice` records, if no invoices are available the resulting record will be empty or else a `stripe:Error` 
+    # + return - An array of `Invoice` records, or else a `stripe:Error` 
     # for non-existant customer IDs
     public remote function list() returns @tainted Invoice[]|Error {
         http:Response response = check createGetRequest(self.invoices, self.path);

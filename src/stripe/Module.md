@@ -24,13 +24,13 @@ The Stripe API uses API keys to authenticate. You can view and manage your API k
 2. Once you create the account you can get the API keys. 
 3. View the Secret key and copy it to use as the token for Stripe client connector.
 
-**Create the base stripe object**
+**Create the base Stripe object**
 
 First, import the `ballerinax/stripe` module into the Ballerina project.
 ```ballerina
 import ballerinax/stripe;
 ```
-Instantiate the `stripe:Account` by giving the stripe API key. 
+Instantiate the `stripe:Account` by giving the Stripe API key. 
 
 You cancreate the top-most Stripe Account object as follows. 
 ```ballerina

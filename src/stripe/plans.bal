@@ -68,7 +68,7 @@ public type Plans client object {
  
    # Lists all plans.
    #
-   # + return - An array of `Plan` records, if no plans are available the resulting record will be empty or else a `stripe:Error`
+   # + return - An array of `Plan` records, or else a `stripe:Error`
    public remote function list() returns @tainted Plan[]|Error {
         http:Response response = check createGetRequest(self.plans, self.path);
         return mapToPlans(response);

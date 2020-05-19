@@ -68,7 +68,7 @@ public type Customers client object {
 
     # Lists all customers.
     #
-    # + return - An array of `Customer` records, if no customers are available the resulting record will be empty
+    # + return - An array of `Customer` records, or else a `stripe:Error` in case of a failure
     public remote function list() returns @tainted Customer[]|Error {
         http:Response response = check createGetRequest(self.customers, self.path);
         return mapToCustomers(response);
