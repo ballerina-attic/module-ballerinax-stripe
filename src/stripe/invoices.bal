@@ -71,8 +71,8 @@ public type Invoices client object {
     # Finalizes an invoice.
     #
     # + invoiceId - Invoice ID
-    # + autoAdvance - `true` if Stripe performs automatic collection of the invoice, otherwise `false`
-    # + return - `Invoice` record or a stripe:Error in case of a failure
+    # + autoAdvance - `true` if Stripe performs automatic collection of the invoice or `false`
+    # + return - `Invoice` record or a `stripe:Error` in case of a failure
     public remote function finalize(string invoiceId, boolean? autoAdvance = false) returns @tainted Invoice|Error {
         string path = self.path + "/" + invoiceId + "/finalize";
         string queryString = AUTO_ADVANCE + autoAdvance.toString();
@@ -95,7 +95,7 @@ public type Invoices client object {
         return mapToInvoiceRecord(response);
     }
 
-    # Send an invoice for mannual payment.
+    # Sends an invoice for manual payment.
     #
     # + invoiceId - Invoice ID
     # + return - `Invoice` record or a stripe:Error in case of a failure
@@ -133,10 +133,10 @@ public type Invoices client object {
         return mapToInvoices(response);
     }
 
-    # Create an invoice item.
+    # Creates an invoice item.
     #
     # + invoiceItem - Parameters to be used when creating an invoice item
-    # + return - `InvoiceItem` record or a stripe:Error in case of a failure
+    # + return - The `InvoiceItem` record or a `stripe:Error` in case of a failure
     public remote function createInvoiceItem(InvoiceItem invoiceItem) returns @tainted InvoiceItem|Error {
         string path = "/v1/invoiceitems";
         string invoiceItemQuery = createQuery(EMPTY, invoiceItem);

@@ -17,7 +17,7 @@
 # Contains information about the Charges.
 # 
 # + amount - Amount intended to be collected by this payment
-# + currency - Three-letter ISO currency code, in lowercase. Must be a supported currency
+# + currency - Three-letter ISO currency code in lowercase. Must be a supported currency
 # + customer - The ID of an existing customer who will be charged
 # + description - Description to be displayed along side the charge object
 # + receipt_email - The email address to which this charge’s receipt will be sent
@@ -26,11 +26,11 @@
 #              a bank account, a source, a token, or a connected account
 # + statement_descriptor - Complete description of a charge on your customers’ statements
 # + statement_descriptor_suffix - A string containing information about the charge that customers see on their statements
-# + capture - Set to `true` for immediately capture the charge, otherwise `false` which indicates that the 
+# + capture - Set to `true` for capturing the charge immediately or otherwise `false`, which indicates that the 
 #             charge will be captured later
 # + on_behalf_of - The Stripe account ID for which these funds are intended
-# + transfer_data - An optional dictionary including the account to automatically transfer to as part of a destination charge
-# + transfer_group - A string that identifies this transaction as part of a group
+# + transfer_data - An optional dictionary including the account to transfer automatically as part of a destination charge
+# + transfer_group - A string, which identifies this transaction as part of a group
 public type Charge record {
     int amount?;
     string currency?;
@@ -49,7 +49,7 @@ public type Charge record {
 
 # Contains information about charge transfers to destination accounts.
 # 
-# + amount - The amount transferred to the destination account, if specified. 
+# + amount - The amount transferred to the destination account if specified. 
 #            By default, the entire charge amount is transferred to the destination account
 # + destination - ID of an existing, connected Stripe account
 public type ChargeTransferDataParams record {
@@ -60,10 +60,10 @@ public type ChargeTransferDataParams record {
 # Contains shipping details of a charge.
 # 
 # + address - Shipping address
-# + carrier - The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc
+# + carrier - The delivery service that shipped a physical product such as Fedex, UPS, USPS, etc.
 # + name - Recipient name
 # + phone - Recipient phone number
-# + tracking_number - The tracking number for a physical product, obtained from the delivery service
+# + tracking_number - The tracking number for a physical product obtained from the delivery service
 public type Shipping record {
     Address address;
     string? carrier?;
@@ -75,12 +75,12 @@ public type Shipping record {
 # Contains information about capturing the payment of an existing, uncaptured charge.
 # 
 # + amount - The amount to capture, which must be less than or equal to the original amount
-# + receipt_email - The email address to send this charge’s receipt to
+# + receipt_email - The email address to send this charge’s receipt 
 # + statement_descriptor - The complete description of a charge on your customers’ statements
-# + statement_descriptor_suffix - A string containing information about the charge that customers see on their statements
+# + statement_descriptor_suffix - A string containing information about the charge, which customers see on their statements
 # + application_fee_amount - An application fee amount to add on to this charge, which must be less than or equal to the original amount
-# + transfer_data - An optional dictionary including the account to automatically transfer to as part of a destination charge
-# + transfer_group - A string that identifies this transaction as part of a group
+# + transfer_data - An optional dictionary including the account to automatically transfer as part of a destination charge
+# + transfer_group - A string, which identifies this transaction as part of a group
 public type Capture record {
     int? amount?;
     string? receipt_email?;
