@@ -36,20 +36,20 @@
 # + footer - Footer to be displayed on the invoice
 # + statement_descriptor - Extra information about a charge for the customer’s credit card statement
 public type Invoice record {
-	string? customer?;
-	boolean? auto_advance?;
-	string? collection_method?;
-	string? description?;
-	string? subscription?;
-	int? application_fee_amount?;
-	InvoiceCustomFields? custom_fields?;
-	int? days_until_due?;
-	string? default_payment_method?;
-	string? default_source?;
-	string[]? tax_rates?;
-	int? due_date?;
-	string? footer?;
-	string? statement_descriptor?;	
+    string? customer?;
+    boolean? auto_advance?;
+    string? collection_method?;
+    string? description?;
+    string? subscription?;
+    int? application_fee_amount?;
+    InvoiceCustomFields? custom_fields?;
+    int? days_until_due?;
+    string? default_payment_method?;
+    string? default_source?;
+    string[]? tax_rates?;
+    int? due_date?;
+    string? footer?;
+    string? statement_descriptor?;	
 };
 
 # A list of up to 4 custom fields to be displayed on the invoice.
@@ -57,8 +57,8 @@ public type Invoice record {
 # + name - The name of the custom field. This may be up to 30 characters
 # + value - The value of the custom field. This may be up to 30 characters
 public type InvoiceCustomFields record {
-	string? name?;
-	string? value?;
+    string? name?;
+    string? value?;
 };
 
 # Configurations related to paying an invoice.
@@ -74,11 +74,11 @@ public type InvoiceCustomFields record {
 # + source - A payment source to be charged. The source must be the ID of a source belonging to the customer associated 
 #            with the invoice being paid
 public type InvoicePay record {
-	boolean forgive?;
-	boolean off_session?;
-	boolean paid_out_of_band?;
-	string payment_method?;
-	string 'source;
+    boolean forgive?;
+    boolean off_session?;
+    boolean paid_out_of_band?;
+    string payment_method?;
+    string 'source;
 };
 
 # Configurations related to creating an invoice item.
@@ -101,20 +101,20 @@ public type InvoicePay record {
 # + unit_amount_decimal - Same as the `unit_amount` but this accepts a decimal value with at most 12 decimal places. 
 #                         Only one from the `unit_amount` and `unit_amount_decimal` can be set
 public type InvoiceItem record {
-	string? customer?;
-	int? amount?;
-	string? currency?;
-	string? description?;
-	int? priceId?;
-	boolean? discountable?;
-	string? invoice?;
-	Period? period?;
-	PriceData? price_data?;
-	int? quantity?;
-	string? subscription?;
-	string[]? tax_rates?;
-	int? unit_amount?;
-	float|string? unit_amount_decimal?;
+    string? customer?;
+    int? amount?;
+    string? currency?;
+    string? description?;
+    int? priceId?;
+    boolean? discountable?;
+    string? invoice?;
+    Period? period?;
+    PriceData? price_data?;
+    int? quantity?;
+    string? subscription?;
+    string[]? tax_rates?;
+    int? unit_amount?;
+    float|string? unit_amount_decimal?;
 };
 
 # The period associated with this invoice item.
@@ -122,8 +122,8 @@ public type InvoiceItem record {
 # + end - The end of the period, which must be greater than or equal to the start
 # + start - The start of the period
 public type Period record {
-	int end;
-	int 'start;
+    int end;
+    int 'start;
 };
 
 # Data used to generate a new price object inline.
@@ -134,8 +134,8 @@ public type Period record {
 # + unit_amount_decimal - Same as the `unit_amount` but this accepts a decimal value with at most 12 decimal places. 
 #                         Only one from the `unit_amount` and `unit_amount_decimal` can be set
 public type PriceData record {
-	string? currency;
-	string? product;
-	int? unit_amount?;
-	float? unit_amount_decimal?;
+    string? currency;
+    string? product;
+    int? unit_amount?;
+    float? unit_amount_decimal?;
 };

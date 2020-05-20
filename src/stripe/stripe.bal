@@ -17,7 +17,7 @@
 import ballerina/http;
 import ballerina/oauth2;
 
-# Represents your Stripe account. It holds the credentials to connect with the Stripe account.
+# Represents Stripe account. It holds the credentials to connect with the Stripe account.
 public type Account object {
 
     private http:Client stripe;

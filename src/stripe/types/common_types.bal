@@ -46,16 +46,16 @@ public type Address record {
 # + address_zip - ZIP or postal code
 # + address_country - Billing address country if provided
 public type Card record {
-	string 'object?;
-	string? number;
-	string exp_month;
-	string exp_year;
-	string? cvc?;
-	string? name?;
-	string? address_line1?;
-	string? address_line2?;
-	string? address_city?;
-	string? address_state?;
-	string? address_zip?;
-	string? address_country?;
+    string 'object?;
+    string? number;
+    string exp_month;
+    string exp_year;
+    string? cvc?;
+    string? name?;
+    string? address_line1?;
+    string? address_line2?;
+    string? address_city?;
+    string? address_state?;
+    string? address_zip?;
+    string? address_country?;
 };

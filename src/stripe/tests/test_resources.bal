@@ -186,8 +186,8 @@ Capture capture = {
 };
 
 Invoice invo = {
-        customer: "cus_HHWIJPAUfcXYNH"
-    };
+    customer: "cus_HHWIJPAUfcXYNH"
+};
 
 Invoice updateInvo = {
     description: "update description"

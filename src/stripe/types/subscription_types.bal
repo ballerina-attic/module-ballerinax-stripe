@@ -47,28 +47,28 @@
 # + trial_period_days - Integer representing the number of trial period days before the customer 
 #                       is charged for the first time
 public type Subscription record {
-	string id?;
-	string customer?;
-	Items[]? subscription_items?;
-	boolean? cancel_at_period_end?;
-	string? default_payment_method?;
-	float? application_fee_percent?;
-	int? backdate_start_date?;
-	int? billing_cycle_anchor?;
-	SubscriptionBillingThresholds? billing_thresholds?;
-	int? cancel_at?;
-	string? collection_method?;
-	string? coupon?;
-	int? days_until_due?;
-	string? default_source?;
-	boolean? off_session?;
-	string? payment_behavior?;
-	PendingInvoiceItemInterval? pending_invoice_item_interval?;
-	string? proration_behavior?;
-	float? tax_percent?;
-	int? trial_end?;
-	boolean? trial_from_plan?;
-	int? trial_period_days?; 
+    string id?;
+    string customer?;
+    Items[]? subscription_items?;
+    boolean? cancel_at_period_end?;
+    string? default_payment_method?;
+    float? application_fee_percent?;
+    int? backdate_start_date?;
+    int? billing_cycle_anchor?;
+    SubscriptionBillingThresholds? billing_thresholds?;
+    int? cancel_at?;
+    string? collection_method?;
+    string? coupon?;
+    int? days_until_due?;
+    string? default_source?;
+    boolean? off_session?;
+    string? payment_behavior?;
+    PendingInvoiceItemInterval? pending_invoice_item_interval?;
+    string? proration_behavior?;
+    float? tax_percent?;
+    int? trial_end?;
+    boolean? trial_from_plan?;
+    int? trial_period_days?; 
 };
 
 # Contains information about thresholds at which an invoice will be sent.
@@ -76,8 +76,8 @@ public type Subscription record {
 # + amount_gte - Monetary threshold, which triggers the subscription to advance to a new billing period
 # + reset_billing_cycle_anchor - Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached
 public type SubscriptionBillingThresholds record {
-	int? amount_gte?;
-	boolean? reset_billing_cycle_anchor?;
+    int? amount_gte?;
+    boolean? reset_billing_cycle_anchor?;
 };
 
 # Subscription items.
@@ -90,19 +90,19 @@ public type SubscriptionBillingThresholds record {
 # + quantity - Quantity for this item
 # + tax_rates - A list of Tax Rate IDs
 public type Items record {
-	string? id?;
-	string? plan;
-	BillingThresholds? billing_thresholds?;
-	map<string>? metadata?;
-	int? quantity?;
-	string[]? tax_rates?;
+    string? id?;
+    string? plan;
+    BillingThresholds? billing_thresholds?;
+    map<string>? metadata?;
+    int? quantity?;
+    string[]? tax_rates?;
 };
 
 # Billing threshold configurations.
 # 
 # + usage_gte - Usage threshold, which triggers the subscription to advance to a new billing period
 public type BillingThresholds record {
-	int? usage_gte?;
+    int? usage_gte?;
 };
 
 # Configurations related to the interval of how often to bill for any pending invoice items.
@@ -110,6 +110,6 @@ public type BillingThresholds record {
 # + interval - Specifies the invoicing frequency:`day`, `week`, `month`, or `year`
 # + interval_count - The number of intervals between the invoices
 public type PendingInvoiceItemInterval record {
-	string? interval?;
-	int? interval_count?;
+    string? interval?;
+    int? interval_count?;
 };

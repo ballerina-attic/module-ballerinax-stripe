@@ -32,18 +32,18 @@
 # + type - Product type: `service` or `good`
 # + url - A URL of a publicly-accessible webpage for this product
 public type Product record {
-	boolean? active?;
-	string[]? attributes?;
-	string? caption?;
-	string[]? deactivate_on?;
-	string? description?;
-	string? id?;
-	string[]? images?;
-	string name?;
-	PackageDimensions? package_dimensions?;
-	boolean? shippable?;
-	string? 'type?;
-	string? url?;
+    boolean? active?;
+    string[]? attributes?;
+    string? caption?;
+    string[]? deactivate_on?;
+    string? description?;
+    string? id?;
+    string[]? images?;
+    string name?;
+    PackageDimensions? package_dimensions?;
+    boolean? shippable?;
+    string? 'type?;
+    string? url?;
 };
 
 # Configurations associated with the package.
@@ -53,8 +53,8 @@ public type Product record {
 # + weight - Weight in ounces
 # + width - Width in inches
 public type PackageDimensions record {
-	float height;
-	float length;
-	float weight;
-	float width;
+    float height;
+    float length;
+    float weight;
+    float width;
 };

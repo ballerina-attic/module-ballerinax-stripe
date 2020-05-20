@@ -66,11 +66,11 @@ public type Plan record {
 # + statement_descriptor - A description to be displayed on customer’s credit card or bank statement
 # + unit_label - A label, which represents units of this product in Stripe and on customers’ receipts and invoices
 public type PlanProduct record {
-	boolean? active?;              
-	string? id?;
-	string? name;
-	string? statement_descriptor?;
-	string? unit_label?;
+    boolean? active?;              
+    string? id?;
+    string? name;
+    string? statement_descriptor?;
+    string? unit_label?;
 };
 
 # Configurations associated with pricing tiers.
@@ -96,6 +96,6 @@ public type PlanTierParams record {
 # + divide_by - Divide usage by this number
 # + round - After division, either round the result `up` or `down`
 public type PlanTransformUsageParams record {
-	int? divide_by?;
-	string? round?;
+    int? divide_by?;
+    string? round?;
 };

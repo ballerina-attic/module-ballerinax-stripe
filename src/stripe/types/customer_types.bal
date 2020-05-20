@@ -54,8 +54,8 @@ public type Customer record {
 #                           This will be used as the customer’s default payment method for subscriptions and invoices
 # + footer - Default footer to be displayed on invoices for this customer
 public type CustomerInvoiceCustomFieldParams record {
-	string? name?;
-	string? value?;
+    string? name?;
+    string? value?;
     string? default_payment_method?;
     string? footer?;
 };
@@ -66,9 +66,9 @@ public type CustomerInvoiceCustomFieldParams record {
 # + name - Customer name
 # + phone - Customer phone
 public type CustomerShippingDetails record {
-	Address? address?; 
-	string? name;
-	string? phone?;       
+    Address? address?; 
+    string? name;
+    string? phone?;       
 };
 
 # The customer’s tax IDs.
@@ -78,6 +78,6 @@ public type CustomerShippingDetails record {
 #                 `jp_cn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, or `sg_gst`
 # + value - Value of the tax ID
 public type CustomerTaxIdDataParams record {
-	string? tax_id_type?;
-	string? value?;
+    string? tax_id_type?;
+    string? value?;
 };
