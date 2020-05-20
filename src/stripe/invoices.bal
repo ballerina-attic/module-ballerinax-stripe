@@ -17,6 +17,8 @@
 import ballerina/http;
 import ballerina/stringutils;
 
+# Represents the Invoices in Stripe. This acts as a client to create, retrieve, update, delete, finalize, pay, 
+# send for manual payment, void, mark uncollectible, and list the invoices in a Stripe Account
 public type Invoices client object {
     private http:Client invoices;
     private string path = "/v1/invoices";

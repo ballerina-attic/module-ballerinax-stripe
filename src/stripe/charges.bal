@@ -17,6 +17,8 @@
 import ballerina/http;
 import ballerina/stringutils;
 
+# Represents Charges in Stripe Account. This acts as a client to create, retrieve, update, capture, and list 
+# the charges in a Stripe Account
 public type Charges client object {
 
     private http:Client charges;

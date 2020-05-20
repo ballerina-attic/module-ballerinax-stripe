@@ -16,6 +16,8 @@
 
 import ballerina/http;
 
+# Represents the Billing Plans in Stripe. This acts as a client to create, 
+# retrieve, update, delete, and list the plans in a Stripe Account.
 public type Plans client object {
     private http:Client plans;
     private string path = "/v1/plans";

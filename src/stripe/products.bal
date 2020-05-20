@@ -16,13 +16,15 @@
 
 import ballerina/http;
 
+# Represents the Products in Stripe. This acts as a client to create, retrieve, update, 
+# delete, and list the products in a Stripe Account.
 public type Products client object {
 
     private http:Client products;
     private string path = "/v1/products";
 
-    function __init(http:Client stripeClient) {
-     self.products = stripeClient;  
+    public function __init(http:Client stripeClient) {
+      self.products = stripeClient;  
     }
 
    # Creates a product.

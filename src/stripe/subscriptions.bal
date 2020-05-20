@@ -17,6 +17,8 @@
 import ballerina/http;
 import ballerina/stringutils;
 
+# Represents the Subscriptions in Stripe. This acts as a client to create, retrieve, update, 
+# delete, and list the subscriptions in a Stripe Account
 public type Subscriptions client object {
    private http:Client subscriptions;
    private string path = "/v1/subscriptions";

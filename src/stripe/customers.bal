@@ -16,6 +16,8 @@
 
 import ballerina/http;
 
+# Represents Customers in Stripe Account. This acts as a client to create, retrieve, update, delete, and 
+# list the customers in a Stripe Account.
 public type Customers client object {
     private http:Client customers;
     private string path = "/v1/customers";
