@@ -19,7 +19,7 @@
 # + customer - The ID of the customer who will be billed
 # + auto_advance - Controls whether Stripe will perform automatic collection of the invoice. 
 # 				   When false, the invoice’s state will not automatically advance without an explicit action
-# + collection_method - Collection method. Either `charge_automatically` or `send_invoice`
+# + collection_method - Collection method. Either `CHARGE_AUTOMATICALLY` or `SEND_INVOICE`
 # + description - A string holding a description of the invoice
 # + subscription - The ID of the subscription to invoice if any. If not set, the created invoice will 
 # 				   include all pending invoice items for the customer
@@ -38,7 +38,7 @@
 public type Invoice record {
     string? customer?;
     boolean? auto_advance?;
-    string? collection_method?;
+    CollectionMethod? collection_method?;
     string? description?;
     string? subscription?;
     int? application_fee_amount?;

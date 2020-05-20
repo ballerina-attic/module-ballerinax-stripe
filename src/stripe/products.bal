@@ -27,15 +27,15 @@ public type Products client object {
       self.products = stripeClient;  
     }
 
-   # Creates a product.
-   #
-   # + product - Product configurations
-   # + return - `Product` record or else a `stripe:Error` in case of a failure
-   public remote function create(Product product) returns @tainted Product|Error {
-     string queryString = createQuery(EMPTY, product);
-     http:Response response = check createPostRequest(self.products, queryString, self.path);
-     return mapToProductRecord(response);
-   }
+    # Creates a product.
+    #
+    # + product - Product configurations
+    # + return - `Product` record or else a `stripe:Error` in case of a failure
+    public remote function create(Product product) returns @tainted Product|Error {
+        string queryString = createQuery(EMPTY, product);
+        http:Response response = check createPostRequest(self.products, queryString, self.path);
+        return mapToProductRecord(response);
+    }
  
    # Retrieves a product.
    #

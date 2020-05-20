@@ -21,15 +21,15 @@
 # + caption - A short one-line description of the product to be displayable to the customer. 
 #            Should be set only if `type=good`
 # + deactivate_on - An array of Connect application names or identifiers, which should not be able 
-#                  to order the SKUs for this product. Should be set only if `type=good`
+#                  to order the SKUs for this product. Should be set only if `type=GOOD`
 # + description - The product’s description
 # + id - An identifier will be generated randomly by Stripe. Optionally, you can  override this ID
 #        but the ID must be unique across all products in your Stripe account
 # + images - A list of up to 8 URLs of images for this product to be displayable to the customer
 # + name - The product’s name
-# + package_dimensions - The dimensions of this product for shipping purposes. Should be set only if `type=good`
-# + shippable - Specifies whether this product is shippable. Should be set only if `type=good`
-# + type - Product type: `service` or `good`
+# + package_dimensions - The dimensions of this product for shipping purposes. Should be set only if `type=GOOD`
+# + shippable - Specifies whether this product is shippable. Should be set only if `type=GOOD`
+# + type - Product type: `SERVICE` or `GOOD`
 # + url - A URL of a publicly-accessible webpage for this product
 public type Product record {
     boolean? active?;
@@ -42,7 +42,7 @@ public type Product record {
     string name?;
     PackageDimensions? package_dimensions?;
     boolean? shippable?;
-    string? 'type?;
+    ProductType? 'type?;
     string? url?;
 };
 
@@ -58,3 +58,6 @@ public type PackageDimensions record {
     float weight;
     float width;
 };
+
+# Defines the possible values for product type.
+public type ProductType GOOD|SERVICE;

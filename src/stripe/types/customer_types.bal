@@ -29,7 +29,7 @@
 # + shipping - The customer’s shipping information
 # + name - The customer’s full name or business name
 # + next_invoice_sequence - The sequence to be used on the customer’s next invoice
-# + tax_exempt - The customer’s tax exemption. One of the values: `none`, `exempt`, or `reverse`
+# + tax_exempt - The customer’s tax exemption. One of the values: `NONE`, `EXEMPT`, or `REVERSE`
 # + tax_id_data - The customer’s tax IDs
 public type Customer record {
     Address? address?;
@@ -42,7 +42,7 @@ public type Customer record {
     CustomerShippingDetails? shipping?;
     string? name?;
     int? next_invoice_sequence?;
-    string tax_exempt?;
+    TaxExempt tax_exempt?;
     CustomerTaxIdDataParams? tax_id_data?;
 };
 
@@ -73,11 +73,18 @@ public type CustomerShippingDetails record {
 
 # The customer’s tax IDs.
 # 
-# + tax_id_type - Type of the tax ID. One of the values: `eu_vat`, `br_cnpj`, `br_cpf`, `nz_gst`, `au_abn`, `in_gst`, `no_vat`, 
-#                 `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, 
-#                 `jp_cn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, or `sg_gst`
+# + tax_id_type - Type of the tax ID. One of the values: `EU_VAT`, `BR_CNPJ`, `BR_CPF`, `NZ_GST`, `AU_ABN`, `IN_GST`, `NO_VAT`, 
+#                 `ZA_VAT`, `CH_VAT`, `MX_RFC`, `SG_UEN`, `RU_INN`, `CA_BN`, `HK_BR`, `ES_CIF`, `tw_vat`, `TW_VAT`, 
+#                 `JP_CN`, `LI_UID`, `MY_ITN`, `US_EIN`, `KR_BRN`, `CA_QST`, `MY_SST`, or `SG_GST`
 # + value - Value of the tax ID
 public type CustomerTaxIdDataParams record {
-    string? tax_id_type?;
+    TaxIdType? tax_id_type?;
     string? value?;
 };
+
+# Defines the possible values for the Type of the tax ID.
+public type TaxIdType EU_VAT|BR_CNPJ|BR_CPF|NZ_GST|AU_ABN|IN_GST|NO_VAT|ZA_VAT|CH_VAT|MX_RFC|SG_UEN|RU_INN|CA_BN|HK_BR
+                        |ES_CIF|TW_VAT|TH_VAT|JP_CN|LI_UID|MY_ITN|US_EIN|KR_BRN|CA_QST|MY_SST|SG_GST;
+
+# Defines the possible values for customer’s tax exemption.
+public type TaxExempt NONE|EXEMPT|REVERSE;

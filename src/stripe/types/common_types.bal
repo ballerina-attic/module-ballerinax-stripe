@@ -59,3 +59,6 @@ public type Card record {
     string? address_zip?;
     string? address_country?;
 };
+
+# Defines the possible values for collection method.
+public type CollectionMethod CHARGE_AUTOMATICALLY|SEND_INVOICE;

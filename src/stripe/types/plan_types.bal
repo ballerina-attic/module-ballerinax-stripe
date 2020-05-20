@@ -18,44 +18,44 @@
 # 
 # + amount - A positive integer in cents (or 0 for a free plan) representing how much to charge on a recurring basis
 # + currency - Three-letter ISO currency code in lowercase. This must be a supported currency
-# + interval - Specifies the billing frequency. Either day, week, month, or year
+# + interval - Specifies the billing frequency. Either `DAY`, `WEEK`, `MONTH`, or `YEAR`
 # + product - The product whose pricing the created plan will represent. This can either be the ID of an existing 
 #             product or a dictionary containing fields used to create a service product
 # + active - Specifies whether the plan is currently available for new subscriptions
 # + nickname - A brief description of the plan, which is hidden from customers
 # + aggregate_usage - Specifies a usage aggregation strategy for plans of `usage_type=metered`. 
-#                     Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the 
-#                     last usage record reported within a period, `last_ever` for using the last usage record ever 
-#                     (across period bounds), or max, which uses the usage record with the maximum reported usage during a period
+#                     Allowed values are `SUM` for summing up all usage during a period, `LAST_DURING_PERIOD` for using the 
+#                     last usage record reported within a period, `LAST_EVER` for using the last usage record ever 
+#                     (across period bounds), or `MAX`, which uses the usage record with the maximum reported usage during a period
 # + amount_decimal - This is the same as `amount` but accepts a decimal value with at most 12 decimal places. 
 #                    Only one from the `amount` and `amount_decimal` can be set
-# + billing_scheme - Describes how to compute the price per period. Either `per_unit` or `tiered`
+# + billing_scheme - Describes how to compute the price per period. Either `TIERED` or `PER_UNIT`
 # + id - Plan ID. An identifier, which is generated randomly by Stripe
-# + tiers - Represents the pricing tiers. This parameter requires the `billing_scheme` to be set to `tiered`
+# + tiers - Represents the pricing tiers. This parameter requires the `billing_scheme` to be set to `TIERED`
 # + tiers_mode - Defines if the tiering price should be `graduated` or `volume based`
-# + interval_count - The number of intervals between subscription billings. For example, `interval=month` and 
+# + interval_count - The number of intervals between subscription billings. For example, `interval=MONTH` and 
 #                    `interval_count=3` bills every 3 months
 # + transform_usage - Apply a transformation to the reported usage or set the quantity before computing the billed price. 
 #                    This cannot be combined with `tiers`
 # + trial_period_days - Default number of trial days when subscribing a customer to this plan using the `trial_from_plan=true`
-# + usage_type - Configures how the quantity per period should be determined. This can be either `metered` or `licensed`
+# + usage_type - Configures how the quantity per period should be determined. This can be either `METERED` or `LICENSED`
 public type Plan record {
     int? amount?;
     string? currency?;
-    string? interval?;
+    Interval? interval?;
     PlanProduct|string? product?;
     boolean? active?;
     string? nickname?;
-    string? aggregate_usage?;
+    AggregateUsage? aggregate_usage?;
     float|string? amount_decimal?;
-    string? billing_scheme?;
+    BillingScheme? billing_scheme?;
     string? id?;
     PlanTierParams[]? tiers?;
     string? tiers_mode?;
     int? interval_count?;
     PlanTransformUsageParams? transform_usage?;
     int? trial_period_days?;
-    string? usage_type?;
+    UsageType? usage_type?;
 };
 
 # Configurations associated in creating a service product.
@@ -94,8 +94,23 @@ public type PlanTierParams record {
 # Configurations associated with transformation.
 # 
 # + divide_by - Divide usage by this number
-# + round - After division, either round the result `up` or `down`
+# + round - After division, either round the result `UP` or `DOWN`
 public type PlanTransformUsageParams record {
     int? divide_by?;
-    string? round?;
+    Round? round?;
 };
+
+# Defines the possible values for billing frequency.
+public type Interval MONTH|YEAR|DAY|WEEK;
+
+# Defines the possible values for aggregate usage.
+public type AggregateUsage SUM|MAX|LAST_DURING_PERIOD|LAST_EVER;
+
+# Defines the possible values for billing scheme.
+public type BillingScheme TIERED|PER_UNIT;
+
+# Defines the possible values for usage type.
+public type UsageType METERED|LICENSED;
+
+# Defines the possible values for rounding after division.
+public type Round UP|DOWN;

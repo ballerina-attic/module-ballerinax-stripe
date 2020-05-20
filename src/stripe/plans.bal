@@ -26,53 +26,53 @@ public type Plans client object {
        self.plans = stripeClient;
     }
 
-   # Creates a plan.
-   #
-   # + plan - Billing plan configurations
-   # + return - `Plan` record or else a `stripe:Error` in case of a failure
-   public remote function create(Plan plan) returns @tainted Plan|Error {
+    # Creates a plan.
+    #
+    # + plan - Billing plan configurations
+    # + return - `Plan` record or else a `stripe:Error` in case of a failure
+    public remote function create(Plan plan) returns @tainted Plan|Error {
         string queryString = createQuery(EMPTY, plan);
         http:Response response = check createPostRequest(self.plans, queryString, self.path);
         return mapToPlanRecord(response);
-   }
+    }
  
-   # Retrieves a plan.
-   #
-   # + planId - Plan ID
-   # + return - `Plan` record or else a `stripe:Error` in case of a failure
-   public remote function retrieve(string planId) returns @tainted Plan|Error {
+    # Retrieves a plan.
+    #
+    # + planId - Plan ID
+    # + return - `Plan` record or else a `stripe:Error` in case of a failure
+    public remote function retrieve(string planId) returns @tainted Plan|Error {
         string path = self.path + "/" + planId;
         http:Response response = check createGetRequest(self.plans, path);
         return mapToPlanRecord(response);
-   }
+    }
  
-   # Updates a plan.
-   #
-   # + planId - Plan ID
-   # + plan - Plan configurations
-   # + return - `Plan` record or else a `stripe:Error` in case of a failure
-   public remote function update(string planId, Plan plan) returns @tainted Plan|Error {
+    # Updates a plan.
+    #
+    # + planId - Plan ID
+    # + plan - Plan configurations
+    # + return - `Plan` record or else a `stripe:Error` in case of a failure
+    public remote function update(string planId, Plan plan) returns @tainted Plan|Error {
         string path = self.path + "/" + planId;
         string queryString = createQuery(EMPTY, plan);
         http:Response response = check createPostRequest(self.plans, queryString, path);
         return mapToPlanRecord(response);
-   }
+    }
  
-   # Deletes a plan.
-   #
-   # + planId - Plan ID
-   # + return - `()` or else a `stripe:Error` in case of a failure
-   public remote function delete(string planId) returns @tainted Error? {
+    # Deletes a plan.
+    #
+    # + planId - Plan ID
+    # + return - `()` or else a `stripe:Error` in case of a failure
+    public remote function delete(string planId) returns @tainted Error? {
         string path = self.path + "/" + planId;
         http:Response response = check createDeleteRequest(self.plans, path);
         return checkDeleteResponse(response);
-   }
+    }
  
-   # Lists all plans.
-   #
-   # + return - An array of `Plan` records or else a `stripe:Error`
-   public remote function list() returns @tainted Plan[]|Error {
+    # Lists all plans.
+    #
+    # + return - An array of `Plan` records or else a `stripe:Error`
+    public remote function list() returns @tainted Plan[]|Error {
         http:Response response = check createGetRequest(self.plans, self.path);
         return mapToPlans(response);
-   }
+    }
 };
