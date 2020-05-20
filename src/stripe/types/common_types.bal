@@ -34,17 +34,17 @@ public type Address record {
 # Contains Card information.
 # 
 # + object - The type of payment source. Should be `card`
-# + number - The card number, as a string without any separators
+# + number - The card number as a string without any separators
 # + exp_month - Two-digit number representing the card's expiration month
-# + exp_year - Two- or four-digit number representing the card's expiration year
-# + cvc - Card security code
+# + exp_year - Two or four-digit number representing the card's expiration year
+# + cvc - Security code of the card
 # + name - Cardholder's full name
 # + address_line1 - Address line 1 
 # + address_line2 - Address line 2
 # + address_city - City / District / Suburb / Town / Village 
 # + address_state - State / County / Province / Region
 # + address_zip - ZIP or postal code
-# + address_country - Billing address country, if provided
+# + address_country - Billing address country if provided
 public type Card record {
 	string 'object?;
 	string? number;
