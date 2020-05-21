@@ -23,7 +23,7 @@ public type Invoices client object {
     private http:Client invoices;
     private string path = "/v1/invoices";
     
-    public function __init(http:Client stripeClient) {
+    function __init(http:Client stripeClient) {
        self.invoices = stripeClient;
     }
 

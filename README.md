@@ -95,7 +95,6 @@ public function main() {
     // Create an invoice.
     stripe:Invoice invoiceParams = {
         customer: "<customer-id>",
-        collection_method: "send_invoice",
         description: "Invoice for ABC customer"
     };
 

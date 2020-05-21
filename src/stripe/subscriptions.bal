@@ -23,7 +23,7 @@ public type Subscriptions client object {
    private http:Client subscriptions;
    private string path = "/v1/subscriptions";
    
-   public function __init(http:Client stripeClient) {
+   function __init(http:Client stripeClient) {
       self.subscriptions = stripeClient;
    }
 

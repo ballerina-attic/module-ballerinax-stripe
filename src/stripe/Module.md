@@ -96,7 +96,6 @@ The `create` remote function can be used to create a draft invoice for a given c
 ```ballerina
 stripe:Invoice invoiceParams = {
     customer: "<customer-id>",
-    collection_method: "send_invoice",
     description: "Invoice for ABC customer"
 };
 

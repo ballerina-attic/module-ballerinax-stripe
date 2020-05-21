@@ -23,7 +23,7 @@ public type Products client object {
     private http:Client products;
     private string path = "/v1/products";
 
-    public function __init(http:Client stripeClient) {
+    function __init(http:Client stripeClient) {
       self.products = stripeClient;  
     }
 

@@ -24,7 +24,7 @@ public type Charges client object {
     private http:Client charges;
     private string path = "/v1/charges";
 
-    public function __init(http:Client stripeClient) {
+    function __init(http:Client stripeClient) {
        self.charges = stripeClient;
     }
 
