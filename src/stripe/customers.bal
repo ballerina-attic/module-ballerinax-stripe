@@ -20,7 +20,6 @@ import ballerina/http;
 # list the customers in a Stripe Account.
 public type Customers client object {
     private http:Client customers;
-    private string path = "/v1/customers";
     
     function __init(http:Client stripeClient) {
        self.customers = stripeClient;
@@ -32,7 +31,7 @@ public type Customers client object {
     # + return - `Customer` record or else a `stripe:Error` in case of a failure
     public remote function create(Customer customer) returns @tainted Customer|Error {
         string queryString = createQuery(EMPTY, customer);
-        http:Response response = check createPostRequest(self.customers, queryString, self.path);
+        http:Response response = check createPostRequest(self.customers, queryString, CUSTOMER_PATH);
         return mapToCustomerRecord(response);        
     }
 
@@ -41,7 +40,7 @@ public type Customers client object {
     # + customerId - Customer ID
     # + return - `Customer` record or else a `stripe:Error` in case of a failure
     public remote function retrieve(string customerId) returns @tainted Customer|Error {
-        string path = self.path + "/" + customerId;
+        string path = CUSTOMER_PATH + BACK_SLASH + customerId;
         http:Response response = check createGetRequest(self.customers, path);
         return mapToCustomerRecord(response);
     }
@@ -52,7 +51,7 @@ public type Customers client object {
     # + customer - Customer configurations
     # + return - `Customer` record or else a `stripe:Error` in case of a failure
     public remote function update(string customerId, Customer customer) returns @tainted Customer|Error {
-        string path = self.path + "/" + customerId;
+        string path = CUSTOMER_PATH + BACK_SLASH + customerId;
         string queryString = createQuery(EMPTY, customer);
         http:Response response = check createPostRequest(self.customers, queryString, path);
         return mapToCustomerRecord(response);
@@ -63,7 +62,7 @@ public type Customers client object {
     # + customerId - Customer ID
     # + return - `()` or else a `stripe:Error` in case of a failure
     public remote function delete(string customerId) returns @tainted Error? {
-        string path = self.path + "/" + customerId;
+        string path = CUSTOMER_PATH + BACK_SLASH + customerId;
         http:Response response = check createDeleteRequest(self.customers, path);
         return checkDeleteResponse(response);
     }
@@ -72,7 +71,7 @@ public type Customers client object {
     #
     # + return - An array of `Customer` records or else a `stripe:Error` in case of a failure
     public remote function list() returns @tainted Customer[]|Error {
-        http:Response response = check createGetRequest(self.customers, self.path);
+        http:Response response = check createGetRequest(self.customers, CUSTOMER_PATH);
         return mapToCustomers(response);
     }
 };

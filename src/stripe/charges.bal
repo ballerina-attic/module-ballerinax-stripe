@@ -22,7 +22,6 @@ import ballerina/stringutils;
 public type Charges client object {
 
     private http:Client charges;
-    private string path = "/v1/charges";
 
     function __init(http:Client stripeClient) {
        self.charges = stripeClient;
@@ -35,7 +34,7 @@ public type Charges client object {
     public remote function create(Charge charge) returns @tainted Charge|Error {
         string queryString = createQuery(EMPTY, charge);
         queryString = stringutils:replace(queryString, SOURCE_ID, SOURCE);
-        http:Response response = check createPostRequest(self.charges, queryString, self.path);
+        http:Response response = check createPostRequest(self.charges, queryString, CHARGE_PATH);
         return mapToChargeRecord(response); 
     }
 
@@ -44,7 +43,7 @@ public type Charges client object {
     # + chargeId - Charge ID
     # + return - `Charge` record or else a `stripe:Error` in case of a failure
     public remote function retrieve(string chargeId) returns @tainted Charge|Error {
-        string path = self.path + "/" + chargeId;
+        string path = CHARGE_PATH + BACK_SLASH + chargeId;
         http:Response response = check createGetRequest(self.charges, path);
         return mapToChargeRecord(response);
     }
@@ -55,7 +54,7 @@ public type Charges client object {
     # + charge - Charge configurations
     # + return - `Charge` record or else a `stripe:Error` in case of a failure
     public remote function update(string chargeId, Charge charge) returns @tainted Charge|Error {
-        string path = self.path + "/" + chargeId;
+        string path = CHARGE_PATH + BACK_SLASH + chargeId;
         string queryString = createQuery(EMPTY, charge);
         http:Response response = check createPostRequest(self.charges, queryString, path);
         return mapToChargeRecord(response);
@@ -67,7 +66,7 @@ public type Charges client object {
     # + capture - Capture charge configurations
     # + return - `Charge` record or else a `stripe:Error` if it is already refunded, expired, captured, or an invalid capture amount is specified.
     public remote function capture(string chargeId, Capture? capture = ()) returns @tainted Charge|Error {
-        string path = self.path + "/" + chargeId + "/capture";
+        string path = CHARGE_PATH + BACK_SLASH + chargeId + CAPTURE_PATH;
         string queryString = EMPTY;
         if (capture is Capture) {
             queryString = createQuery(EMPTY, capture);
@@ -80,7 +79,7 @@ public type Charges client object {
     #
     # + return - An array of `Charge` records or else a `stripe:Error` for non-existent customer IDs
     public remote function list() returns @tainted Charge[]|Error {
-        http:Response response = check createGetRequest(self.charges, self.path);
+        http:Response response = check createGetRequest(self.charges, CHARGE_PATH);
         return mapToCharges(response);
     }
 };

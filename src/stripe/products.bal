@@ -21,7 +21,6 @@ import ballerina/http;
 public type Products client object {
 
     private http:Client products;
-    private string path = "/v1/products";
 
     function __init(http:Client stripeClient) {
       self.products = stripeClient;  
@@ -33,7 +32,7 @@ public type Products client object {
     # + return - `Product` record or else a `stripe:Error` in case of a failure
     public remote function create(Product product) returns @tainted Product|Error {
         string queryString = createQuery(EMPTY, product);
-        http:Response response = check createPostRequest(self.products, queryString, self.path);
+        http:Response response = check createPostRequest(self.products, queryString, PRODUCT_PATH);
         return mapToProductRecord(response);
     }
  
@@ -42,7 +41,7 @@ public type Products client object {
    # + productId - Product ID
    # + return - `Product` record or else a `stripe:Error` in case of a failure
    public remote function retrieve(string productId) returns @tainted Product|Error {
-     string path = self.path + "/" + productId;
+     string path = PRODUCT_PATH + BACK_SLASH + productId;
      http:Response response = check createGetRequest(self.products, path);
      return mapToProductRecord(response);
    } 
@@ -53,7 +52,7 @@ public type Products client object {
    # + product - Product configurations
    # + return - `Product` record or else a `stripe:Error` in case of a failure
    public remote function update(string productId, Product product) returns @tainted Product|Error {
-     string path = self.path + "/" + productId;
+     string path = PRODUCT_PATH + BACK_SLASH + productId;
      string queryString = createQuery(EMPTY, product);
      http:Response response = check createPostRequest(self.products, queryString, path);
      return mapToProductRecord(response);
@@ -64,7 +63,7 @@ public type Products client object {
    # + productId - Product ID
    # + return - `()` or else a `stripe:Error` in case of a failure
    public remote function delete(string productId) returns @tainted Error? {
-     string path = self.path + "/" + productId;
+     string path = PRODUCT_PATH + BACK_SLASH + productId;
      http:Response response = check createDeleteRequest(self.products, path);
      return checkDeleteResponse(response);
    }
@@ -73,7 +72,7 @@ public type Products client object {
    #
    # + return - An array of `Product` records or else a `stripe:Error`
    public remote function list() returns @tainted Product[]|Error {
-     http:Response response = check createGetRequest(self.products, self.path);
+     http:Response response = check createGetRequest(self.products, PRODUCT_PATH);
      return mapToProducts(response);
    }
 };

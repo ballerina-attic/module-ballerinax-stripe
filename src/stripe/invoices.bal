@@ -21,7 +21,6 @@ import ballerina/stringutils;
 # send for manual payment, void, mark uncollectible, and list the invoices in a Stripe Account
 public type Invoices client object {
     private http:Client invoices;
-    private string path = "/v1/invoices";
     
     function __init(http:Client stripeClient) {
        self.invoices = stripeClient;
@@ -34,7 +33,7 @@ public type Invoices client object {
     public remote function create(Invoice invoice) returns @tainted Invoice|Error {
         string queryString = createQuery(EMPTY, invoice);
         queryString = stringutils:replace(queryString, TAX_RATES, DEFAULT_TAX_RATES);
-        http:Response response = check createPostRequest(self.invoices, queryString, self.path);
+        http:Response response = check createPostRequest(self.invoices, queryString, INVOICE_PATH);
         return mapToInvoiceRecord(response);
     }
 
@@ -43,7 +42,7 @@ public type Invoices client object {
     # + invoiceId - Invoice ID
     # + return - `Invoice` record or else a `stripe:Error` in case of a failure
     public remote function retrieve(string invoiceId) returns @tainted Invoice|Error {
-        string path = self.path + "/" + invoiceId;
+        string path = INVOICE_PATH + BACK_SLASH + invoiceId;
         http:Response response = check createGetRequest(self.invoices, path);
         return mapToInvoiceRecord(response);
     }
@@ -54,7 +53,7 @@ public type Invoices client object {
     # + invoice - Invoice configurations
     # + return - `Invoice` record or else a `stripe:Error` in case of a failure
     public remote function update(string invoiceId, Invoice invoice) returns @tainted Invoice|Error {
-        string path = self.path + "/" + invoiceId;
+        string path = INVOICE_PATH + BACK_SLASH + invoiceId;
         string queryString = createQuery(EMPTY, invoice);
         http:Response response = check createPostRequest(self.invoices, queryString, path);
         return mapToInvoiceRecord(response);
@@ -65,7 +64,7 @@ public type Invoices client object {
     # + invoiceId - Invoice ID
     # + return - `()` if the invoice is deleted succesfully or else a `stripe:Error` if the invoice has been already deleted
     public remote function deleteDraft(string invoiceId) returns @tainted Error? {
-        string path = self.path + "/" + invoiceId;
+        string path = INVOICE_PATH + BACK_SLASH + invoiceId;
         http:Response response = check createDeleteRequest(self.invoices, path);
         return checkDeleteResponse(response);
     }
@@ -76,7 +75,7 @@ public type Invoices client object {
     # + autoAdvance - `true` if Stripe performs automatic collection of the invoice or `false`
     # + return - `Invoice` record or a `stripe:Error` in case of a failure
     public remote function finalize(string invoiceId, boolean? autoAdvance = false) returns @tainted Invoice|Error {
-        string path = self.path + "/" + invoiceId + "/finalize";
+        string path = INVOICE_PATH + BACK_SLASH + invoiceId + FINALIZE_PATH;
         string queryString = AUTO_ADVANCE + autoAdvance.toString();
         http:Response response = check createPostRequest(self.invoices, queryString, path);
         return mapToInvoiceRecord(response);
@@ -89,7 +88,7 @@ public type Invoices client object {
     # + return - `Invoice` record or a `stripe:Error` in case of a failure
     public remote function pay(string invoiceId, InvoicePay? invoicePay = ()) returns @tainted Invoice|Error {
         string invoicePayQuery = EMPTY;
-        string path = self.path + "/" + invoiceId + "/pay";
+        string path = INVOICE_PATH + BACK_SLASH + invoiceId + PAY_PATH;
         if (invoicePay is InvoicePay) {
             invoicePayQuery = createQuery(EMPTY, invoicePay);
         }
@@ -102,7 +101,7 @@ public type Invoices client object {
     # + invoiceId - Invoice ID
     # + return - `Invoice` record or a `stripe:Error` in case of a failure
     public remote function sendForMannualPayment(string invoiceId) returns @tainted Invoice|Error {
-        string path = self.path + "/" + invoiceId + "/send";
+        string path = INVOICE_PATH + BACK_SLASH + invoiceId + SEND_PATH;
         http:Response response = check createPostRequest(self.invoices, EMPTY, path);
         return mapToInvoiceRecord(response);
     }
@@ -112,7 +111,7 @@ public type Invoices client object {
     # + invoiceId - Invoice ID
     # + return - `Invoice` record or a `stripe:Error` in case of a failure
     public remote function void(string invoiceId) returns @tainted Invoice|Error {
-        string path = self.path + "/" + invoiceId + "/void";
+        string path = INVOICE_PATH + BACK_SLASH + invoiceId + VOID_PATH;
         http:Response response = check createPostRequest(self.invoices, EMPTY, path);
         return mapToInvoiceRecord(response);
     }
@@ -122,7 +121,7 @@ public type Invoices client object {
     # + invoiceId - Invoice ID
     # + return - `Invoice` record or a `stripe:Error` in case of a failure
     public remote function markInvoiceUncollectible(string invoiceId) returns @tainted Invoice|Error {
-        string path = self.path + "/" + invoiceId + "/mark_uncollectible";
+        string path = INVOICE_PATH + BACK_SLASH + invoiceId + MARK_UNCOLLECTIBLE_PATH;
         http:Response response = check createPostRequest(self.invoices, EMPTY, path);
         return mapToInvoiceRecord(response);
     }
@@ -131,7 +130,7 @@ public type Invoices client object {
     #
     # + return - An array of `Invoice` records, or else a `stripe:Error` in case of a failure
     public remote function list() returns @tainted Invoice[]|Error {
-        http:Response response = check createGetRequest(self.invoices, self.path);
+        http:Response response = check createGetRequest(self.invoices, INVOICE_PATH);
         return mapToInvoices(response);
     }
 
@@ -140,10 +139,9 @@ public type Invoices client object {
     # + invoiceItem - Parameters to be used when creating an invoice item
     # + return - The `InvoiceItem` record or a `stripe:Error` in case of a failure
     public remote function createInvoiceItem(InvoiceItem invoiceItem) returns @tainted InvoiceItem|Error {
-        string path = "/v1/invoiceitems";
         string invoiceItemQuery = createQuery(EMPTY, invoiceItem);
         invoiceItemQuery = stringutils:replace(invoiceItemQuery, PRICE_ID, PRICE);
-        http:Response response = check createPostRequest(self.invoices, invoiceItemQuery, path);
+        http:Response response = check createPostRequest(self.invoices, invoiceItemQuery, INVOICE_ITEM_PATH);
         return mapToInvoiceItemRecord(response);
     }
 };

@@ -21,7 +21,6 @@ import ballerina/stringutils;
 # delete, and list the subscriptions in a Stripe Account
 public type Subscriptions client object {
    private http:Client subscriptions;
-   private string path = "/v1/subscriptions";
    
    function __init(http:Client stripeClient) {
       self.subscriptions = stripeClient;
@@ -34,7 +33,7 @@ public type Subscriptions client object {
    public remote function create(Subscription subscription) returns @tainted Subscription|Error {
       string queryString = createQuery(EMPTY, subscription);
       queryString = stringutils:replace(queryString, SUBSCRIPTION_ITEMS, ITEMS);
-      http:Response response = check createPostRequest(self.subscriptions, queryString, self.path);
+      http:Response response = check createPostRequest(self.subscriptions, queryString, SUBSCRIPTION_PATH);
       return mapToSubscriptionRecord(response);
    }
 
@@ -43,7 +42,7 @@ public type Subscriptions client object {
    # + subscriptionId - Subscription ID
    # + return - `Subscription` record or else a `stripe:Error` in case of a failure
    public remote function retrieve(string subscriptionId) returns @tainted Subscription|Error {
-      string path = self.path + "/" + subscriptionId;
+      string path = SUBSCRIPTION_PATH + BACK_SLASH + subscriptionId;
       http:Response response = check createGetRequest(self.subscriptions, path);
       return mapToSubscriptionRecord(response);
    }
@@ -54,7 +53,7 @@ public type Subscriptions client object {
    # + subscription - Subscription configurations
    # + return - `Subscription` record or else a `stripe:Error` in case of a failure
    public remote function update(string subscriptionId, Subscription subscription) returns @tainted Subscription|Error {
-      string path = self.path + "/" + subscriptionId;
+      string path = SUBSCRIPTION_PATH + BACK_SLASH + subscriptionId;
       string queryString = createQuery(EMPTY, subscription);
       queryString = stringutils:replace(queryString, SUBSCRIPTION_ITEMS, ITEMS);
       http:Response response = check createPostRequest(self.subscriptions, queryString, path);
@@ -66,7 +65,7 @@ public type Subscriptions client object {
    # + subscriptionId - Subscription ID
    # + return - `()` or else a `stripe:Error` in case of a failure
    public remote function cancel(string subscriptionId) returns @tainted Subscription|Error {
-      string path = self.path + "/" + subscriptionId;
+      string path = SUBSCRIPTION_PATH + BACK_SLASH + subscriptionId;
       http:Response response = check createDeleteRequest(self.subscriptions, path);
       return mapToSubscriptionRecord(response);
    }
@@ -75,7 +74,7 @@ public type Subscriptions client object {
    #
    # + return - An array of `Subscription` records or else a `stripe:Error` in case of a failure
    public remote function list() returns @tainted Subscription[]|Error {
-      http:Response response = check createGetRequest(self.subscriptions, self.path);
+      http:Response response = check createGetRequest(self.subscriptions, SUBSCRIPTION_PATH);
       return mapToSubscriptions(response);
    }
 };

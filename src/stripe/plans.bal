@@ -20,7 +20,6 @@ import ballerina/http;
 # retrieve, update, delete, and list the plans in a Stripe Account.
 public type Plans client object {
     private http:Client plans;
-    private string path = "/v1/plans";
     
     function __init(http:Client stripeClient) {
        self.plans = stripeClient;
@@ -32,7 +31,7 @@ public type Plans client object {
     # + return - `Plan` record or else a `stripe:Error` in case of a failure
     public remote function create(Plan plan) returns @tainted Plan|Error {
         string queryString = createQuery(EMPTY, plan);
-        http:Response response = check createPostRequest(self.plans, queryString, self.path);
+        http:Response response = check createPostRequest(self.plans, queryString, PLAN_PATH);
         return mapToPlanRecord(response);
     }
  
@@ -41,7 +40,7 @@ public type Plans client object {
     # + planId - Plan ID
     # + return - `Plan` record or else a `stripe:Error` in case of a failure
     public remote function retrieve(string planId) returns @tainted Plan|Error {
-        string path = self.path + "/" + planId;
+        string path = PLAN_PATH + BACK_SLASH + planId;
         http:Response response = check createGetRequest(self.plans, path);
         return mapToPlanRecord(response);
     }
@@ -52,7 +51,7 @@ public type Plans client object {
     # + plan - Plan configurations
     # + return - `Plan` record or else a `stripe:Error` in case of a failure
     public remote function update(string planId, Plan plan) returns @tainted Plan|Error {
-        string path = self.path + "/" + planId;
+        string path = PLAN_PATH + BACK_SLASH + planId;
         string queryString = createQuery(EMPTY, plan);
         http:Response response = check createPostRequest(self.plans, queryString, path);
         return mapToPlanRecord(response);
@@ -63,7 +62,7 @@ public type Plans client object {
     # + planId - Plan ID
     # + return - `()` or else a `stripe:Error` in case of a failure
     public remote function delete(string planId) returns @tainted Error? {
-        string path = self.path + "/" + planId;
+        string path = PLAN_PATH + BACK_SLASH + planId;
         http:Response response = check createDeleteRequest(self.plans, path);
         return checkDeleteResponse(response);
     }
@@ -72,7 +71,7 @@ public type Plans client object {
     #
     # + return - An array of `Plan` records or else a `stripe:Error`
     public remote function list() returns @tainted Plan[]|Error {
-        http:Response response = check createGetRequest(self.plans, self.path);
+        http:Response response = check createGetRequest(self.plans, PLAN_PATH);
         return mapToPlans(response);
     }
 };

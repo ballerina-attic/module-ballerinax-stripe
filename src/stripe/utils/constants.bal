@@ -15,7 +15,21 @@
 // under the License.
 
 const string BASE_URL = "https://api.stripe.com";
+const string CHARGE_PATH = "/v1/charges";
+const string CAPTURE_PATH = "/capture";
+const string CUSTOMER_PATH = "/v1/customers";
+const string INVOICE_PATH = "/v1/invoices";
+const string FINALIZE_PATH = "/finalize";
+const string PAY_PATH = "/pay";
+const string SEND_PATH = "/send";
+const string VOID_PATH = "/void";
+const string MARK_UNCOLLECTIBLE_PATH = "/mark_uncollectible";
+const string INVOICE_ITEM_PATH = "/v1/invoiceitems";
+const string PLAN_PATH = "/v1/plans";
+const string PRODUCT_PATH = "/v1/products";
+const string SUBSCRIPTION_PATH = "/v1/subscriptions";
 const string AND = "&";
+const string BACK_SLASH = "/";
 const string TAX_RATES = "tax_rates";
 const string DEFAULT_TAX_RATES = "default_tax_rates";
 const string UTF8 = "UTF8";
