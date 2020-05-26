@@ -22,6 +22,7 @@ function mapToInvoiceRecord(http:Response response) returns @tainted Invoice|Err
         return setJsonResError(payload);
     } else {
         check checkForErrorResponse(payload);
+        convertJsonToCamelCase(payload);
         Invoice|error invoice = Invoice.constructFrom(payload);
         if (invoice is error) {
             return Error(message = "Response cannot be converted to Invoice record", cause = invoice);
@@ -42,7 +43,9 @@ function mapToInvoices(http:Response response) returns @tainted Invoice[]|Error 
         }
         json invoicesJson = <json> invoices;
         check checkForErrorResponse(invoicesJson);
-        Invoice[]|error invoicesList = Invoice[].constructFrom(invoicesJson);
+        json[] invoiceJsonArr = <json[]> invoicesJson;
+        convertJsonArrayToCamelCase(invoiceJsonArr);
+        Invoice[]|error invoicesList = Invoice[].constructFrom(invoiceJsonArr);
         if (invoicesList is error) {
             return Error(message = "Response cannot be converted to Invoice record array", cause = invoicesList);
         } else {
@@ -57,6 +60,7 @@ function mapToInvoiceItemRecord(http:Response response) returns @tainted Invoice
         return setJsonResError(payload);
     } else {
         check checkForErrorResponse(payload);
+        convertJsonToCamelCase(payload);
         InvoiceItem|error invoiceItem = InvoiceItem.constructFrom(payload);
         if (invoiceItem is error) {
             return Error(message = "Response cannot be converted to InvoiceItem record", cause = invoiceItem);

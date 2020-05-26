@@ -20,14 +20,14 @@
 # + country - Two-letter country code 
 # + line1 - Address line 1
 # + line2 - Address line 2
-# + postal_code - ZIP or postal code
+# + postalCode - ZIP or postal code
 # + state - State, county, province, or region
 public type Address record {
     string? city?;
     string? country?;
     string? line1;
     string? line2?;
-    string? postal_code?;
+    string? postalCode?;
     string? state?;
 };
 
@@ -35,29 +35,29 @@ public type Address record {
 # 
 # + object - The type of payment source. Should be `card`
 # + number - The card number as a string without any separators
-# + exp_month - Two-digit number representing the card's expiration month
-# + exp_year - Two or four-digit number representing the card's expiration year
+# + expMonth - Two-digit number representing the card's expiration month
+# + expYear - Two or four-digit number representing the card's expiration year
 # + cvc - Security code of the card
 # + name - Cardholder's full name
-# + address_line1 - Address line 1 
-# + address_line2 - Address line 2
-# + address_city - City / District / Suburb / Town / Village 
-# + address_state - State / County / Province / Region
-# + address_zip - ZIP or postal code
-# + address_country - Billing address country if provided
+# + addressLine1 - Address line 1 
+# + addressLine2 - Address line 2
+# + addressCity - City / District / Suburb / Town / Village 
+# + addressState - State / County / Province / Region
+# + addressZip - ZIP or postal code
+# + addressCountry - Billing address country if provided
 public type Card record {
     string 'object?;
     string? number;
-    string exp_month;
-    string exp_year;
+    string expMonth;
+    string expYear;
     string? cvc?;
     string? name?;
-    string? address_line1?;
-    string? address_line2?;
-    string? address_city?;
-    string? address_state?;
-    string? address_zip?;
-    string? address_country?;
+    string? addressLine1?;
+    string? addressLine2?;
+    string? addressCity?;
+    string? addressState?;
+    string? addressZip?;
+    string? addressCountry?;
 };
 
 # Defines the possible values for collection method.

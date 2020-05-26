@@ -16,6 +16,7 @@
 
 import ballerina/encoding;
 import ballerina/http;
+import ballerina/stringutils;
 
 function getEncodedUri(string value) returns string {
     string|error encoded = encoding:encodeUriComponent(value, UTF8);
@@ -107,29 +108,28 @@ function createQuery(string parent, any anyRecord) returns string {
                     int count = 0;
                     if (key != TAX_RATES) {
                         subQuery = subQuery + str;
-                        queryString = queryString + printWithParent(parent, key + "[]", subQuery) + AND;
+                        queryString = queryString + printWithParent(parent, fillWithUnderscore(key) + "[]", subQuery) + AND;
                     } else {
                         subQuery = subQuery + "\"" + str + "\",";
                     }
                 } 
                 if (key == TAX_RATES) {
                     subQuery = subQuery.substring(0, subQuery.length() - 1);
-                    queryString = queryString + printWithParent(parent, key + "[0]", "[" + subQuery + "]") + AND;
+                    queryString = queryString + printWithParent(parent, fillWithUnderscore(key) + "[0]", "[" + subQuery + "]") + AND;
                 }
             } else if (value is record {}) {
                 if (parent == "") {
-                    queryString = queryString + createQuery(key, value);
+                    queryString = queryString + createQuery(fillWithUnderscore(key), value);
                 } else {
-                    queryString = queryString + createQuery(parent + "[" + key + "]", value);
+                    queryString = queryString + createQuery(parent + "[" + fillWithUnderscore(key) + "]", value);
                 }
-            } 
-            else if (value is record {}[]) {
+            } else if (value is record {}[]) {
                 int count = 0;
                 foreach var recordItem in value {
                     if (parent == "") {
-                        queryString = queryString + createQuery(key + "[" + count.toString() + "]", recordItem);
+                        queryString = queryString + createQuery(fillWithUnderscore(key) + "[" + count.toString() + "]", recordItem);
                     } else {
-                        queryString = queryString + createQuery(parent + "[" + key + "][" + count.toString() + "]", recordItem);
+                        queryString = queryString + createQuery(parent + "[" + fillWithUnderscore(key) + "][" + count.toString() + "]", recordItem);
                     }
                     count = count + 1;
                 }
@@ -142,9 +142,57 @@ function createQuery(string parent, any anyRecord) returns string {
 function printWithParent(string parent, string key, any value) returns string {
     string parentString = "";
     if (parent == "") {
-        parentString = key + "=" + getEncodedUri(value.toString());
+        parentString = fillWithUnderscore(key) + "=" + getEncodedUri(value.toString());
     } else {
-        parentString = parent + "[" + key + "]=" + getEncodedUri(value.toString());
+        parentString = parent + "[" + fillWithUnderscore(key) + "]=" + getEncodedUri(value.toString());
     }
     return parentString;
+}
+
+function fillWithUnderscore(string camelCaseString) returns string {
+    string stringWithUnderScore = stringutils:replaceAll(camelCaseString, "([A-Z])", "_$1");
+    return stringWithUnderScore.toLowerAscii();
+}
+
+function convertJsonToCamelCase(json req) {
+    map<json> mapValue = <map<json>>req;
+    foreach var [key, value] in mapValue.entries() {
+        string converted = convertToCamelCase(key);
+        if (converted != key) {
+            any|error removeResult = mapValue.remove(key);
+            mapValue[converted] = value;
+        }
+        if (value is json[]) {
+            json[] innerJson = <json[]>mapValue[converted];
+            foreach var item in innerJson {
+                // assume no arrays inside array
+                if (item is map<json>) {
+                    convertJsonToCamelCase(item);
+                }
+            }
+        } else if (value is map<json>) {
+            convertJsonToCamelCase(value);
+        }
+    }
+}
+
+function convertJsonArrayToCamelCase(json[] jsonArr) {
+    foreach var item in jsonArr {
+        convertJsonToCamelCase(item);
+    }
+}
+
+function convertToCamelCase(string input) returns string {
+    string returnResult = EMPTY;
+    string[] splitResult = stringutils:split(input, "_");
+    int i = 0;
+    foreach var item in splitResult {
+        if (i == 0) {
+            returnResult = item;
+        } else {
+            returnResult = returnResult + item.substring(0,1).toUpperAscii() + item.substring(1, item.length());
+        }
+        i = i + 1;
+    }
+    return returnResult;
 }

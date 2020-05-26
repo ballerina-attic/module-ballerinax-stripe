@@ -22,6 +22,7 @@ function mapToProductRecord(http:Response response) returns @tainted Product|Err
         return setJsonResError(payload);
     } else {
         check checkForErrorResponse(payload);
+        convertJsonToCamelCase(payload);
         Product|error product = Product.constructFrom(payload);
         if (product is error) {
             return Error(message = "Response cannot be converted to Product record", cause = product);
@@ -42,7 +43,9 @@ function mapToProducts(http:Response response) returns @tainted Product[]|Error 
         }
         json productsJson = <json> products;
         check checkForErrorResponse(productsJson);
-        Product[]|error productList = Product[].constructFrom(productsJson);
+        json[] productJsonArr = <json[]> productsJson;
+        convertJsonArrayToCamelCase(productJsonArr);
+        Product[]|error productList = Product[].constructFrom(productJsonArr);
         if (productList is error) {
             return Error(message = "Response cannot be converted to Product record array", cause = productList);
         } else {

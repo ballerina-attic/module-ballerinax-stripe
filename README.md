@@ -70,14 +70,14 @@ public function main() {
     };
     
     stripe:Customers customers = stripeAccount.customers();
-    stripe:Customer|stripe:Error response = customers->create(customerParams);
-    if (response is stripe:Customer) { 
-        anydata customerId =  response["id"];
+    stripe:Customer|stripe:Error customer = customers->create(customerParams);
+    if (customer is stripe:Customer) { 
+        anydata customerId =  customer["id"];
         if (customerId is string) { 
             io:println("Customer created. Name = " + customerId);
         }
     } else {
-        io:println("Error" + response.detail()?.message.toString());
+        io:println("Error" + customer.detail()?.message.toString());
     }
 
     // Capture the payment of an existing, uncaptured, charge 

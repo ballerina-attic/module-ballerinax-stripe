@@ -22,6 +22,7 @@ function mapToChargeRecord(http:Response response) returns @tainted Charge|Error
         return setJsonResError(payload);
     } else {
         check checkForErrorResponse(payload);
+        convertJsonToCamelCase(payload);
         Charge|error charge = Charge.constructFrom(payload);
         if (charge is error) {
             return Error(message = "Response cannot be converted to Charge record", cause = charge);
@@ -42,7 +43,9 @@ function mapToCharges(http:Response response) returns @tainted Charge[]|Error {
         }
         json chargesJson = <json> charges;
         check checkForErrorResponse(chargesJson);
-        Charge[]|error chargeList = Charge[].constructFrom(chargesJson);
+        json[] chargesJsonArr = <json[]> chargesJson;
+        convertJsonArrayToCamelCase(chargesJsonArr);
+        Charge[]|error chargeList = Charge[].constructFrom(chargesJsonArr);
         if (chargeList is error) {
             return Error(message = "Response cannot be converted to Charge record array", cause = chargeList);
         } else {

@@ -141,9 +141,11 @@ function testPlanFunctions() {
         test:assertFail(msg = <string>retrievedPlan.detail()?.message);
     } else {
         if (retrievedPlan is Plan) {
-            string? billingScheme = retrievedPlan["billing_scheme"];
+            string? billingScheme = retrievedPlan["billingScheme"];
             if (billingScheme is string) {
                 test:assertEquals(billingScheme, "tiered");
+            } else {
+                test:assertFail(msg = "Billing scheme is ()");
             }
         }
     }
@@ -155,6 +157,8 @@ function testPlanFunctions() {
         string? nickName = updatedPlan["nickname"];
         if (nickName is string) {
            test:assertEquals(nickName, "RedPursePlan1");
+        } else {
+            test:assertFail(msg = "nickName is ()");
         }
     }
 
@@ -181,9 +185,11 @@ function testSubscriptionFunctions() {
         test:assertFail(msg = <string>retrievedSubscription.detail()?.message);
     } else {
         if (retrievedSubscription is Subscription) {
-            string? method = retrievedSubscription["collection_method"];
+            string? method = retrievedSubscription["collectionMethod"];
             if (method is string) {
                 test:assertEquals(method, "send_invoice");
+            } else {
+                test:assertFail(msg = "method is ()");
             }
         }
     }
@@ -197,9 +203,11 @@ function testSubscriptionFunctions() {
     if (updatedSubscription is Error) {
         test:assertFail(msg = <string>updatedSubscription.detail()?.message);
     } else {
-        string? method = updatedSubscription["collection_method"];
+        string? method = updatedSubscription["collectionMethod"];
         if (method is string) {
            test:assertEquals(method, "send_invoice");
+        } else {
+            test:assertFail(msg = "method is ()");
         }
     } 
 }
@@ -211,9 +219,11 @@ function testChargeFunctions() {
         test:assertFail(msg = <string>retrievedCharge.detail()?.message);
     } else {
         if (retrievedCharge is Charge) {
-            string? email = retrievedCharge["receipt_email"];
+            anydata email = retrievedCharge["receiptEmail"];
             if (email is string) {
                 test:assertEquals(email, "bhashi@gmail.com");
+            } else {
+                test:assertFail(msg = "email is ()");
             }
         }
     }

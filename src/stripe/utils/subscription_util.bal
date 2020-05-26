@@ -21,7 +21,8 @@ function mapToSubscriptionRecord(http:Response response) returns @tainted Subscr
     if (payload is error) {
         return setJsonResError(payload);
     } else {
-        check checkForErrorResponse(payload);       
+        check checkForErrorResponse(payload);    
+        convertJsonToCamelCase(payload);   
         Subscription|error subscription = Subscription.constructFrom(payload);
         if (subscription is error) {
             return Error(message = "Response cannot be converted to Subscription record", cause = subscription);
@@ -42,7 +43,9 @@ function mapToSubscriptions(http:Response response) returns @tainted Subscriptio
         }
         json subscriptionsJson = <json> subscriptions;
         check checkForErrorResponse(subscriptionsJson);
-        Subscription[]|error subscriptionsList = Subscription[].constructFrom(subscriptionsJson);
+        json[] subscriptionsJsonArr = <json[]> subscriptionsJson;
+        convertJsonArrayToCamelCase(subscriptionsJsonArr);
+        Subscription[]|error subscriptionsList = Subscription[].constructFrom(subscriptionsJsonArr);
         if (subscriptionsList is error) {
             return Error(message = "Response cannot be converted to Subscription record array", cause = subscriptionsList);
         } else {

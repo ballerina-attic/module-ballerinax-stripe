@@ -22,6 +22,7 @@ function mapToCustomerRecord(http:Response response) returns @tainted Customer|E
         return setJsonResError(payload);
     } else {
         check checkForErrorResponse(payload);
+        convertJsonToCamelCase(payload);
         Customer|error customer = Customer.constructFrom(payload);
         if (customer is error) {
             return Error(message = "Response cannot be converted to Customer record", cause = customer);
@@ -42,7 +43,9 @@ function mapToCustomers(http:Response response) returns @tainted Customer[]|Erro
         }
         json customersJson = <json> customers;
         check checkForErrorResponse(customersJson);
-        Customer[]|error customerList = Customer[].constructFrom(customersJson);
+        json[] customerJsonArr = <json[]> customersJson;
+        convertJsonArrayToCamelCase(customerJsonArr);
+        Customer[]|error customerList = Customer[].constructFrom(customerJsonArr);
         if (customerList is error) {
             return Error(message = "Response cannot be converted to Customers record array", cause = customerList);
         } else {

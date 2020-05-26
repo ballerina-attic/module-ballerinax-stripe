@@ -23,40 +23,40 @@
 # + description - An arbitrary string that can be attached to a customer object. 
 #                 It is displayed  in the dashboard alongside the customer's name
 # + email - Customer’s email address
-# + invoice_prefix - The prefix for the customer, which is used to generate unique invoice numbers. 
+# + invoicePrefix - The prefix for the customer, which is used to generate unique invoice numbers. 
 #                    Must be containing 3–12 uppercase letters or numbers
-# + invoice_settings - Default invoice settings for a customer
+# + invoiceSettings - Default invoice settings for a customer
 # + shipping - The customer’s shipping information
 # + name - The customer’s full name or business name
-# + next_invoice_sequence - The sequence to be used on the customer’s next invoice
-# + tax_exempt - The customer’s tax exemption. One of the values: `NONE`, `EXEMPT`, or `REVERSE`
-# + tax_id_data - The customer’s tax IDs
+# + nextInvoiceSequence - The sequence to be used on the customer’s next invoice
+# + taxExempt - The customer’s tax exemption. One of the values: `NONE`, `EXEMPT`, or `REVERSE`
+# + taxIdData - The customer’s tax IDs
 public type Customer record {
     Address? address?;
     int balance?;
     string? coupon?;
-    string description?;
+    string? description?;
     string? email?;
-    string? invoice_prefix?;
-    CustomerInvoiceCustomFieldParams? invoice_settings?;
+    string? invoicePrefix?;
+    CustomerInvoiceCustomFieldParams? invoiceSettings?;
     CustomerShippingDetails? shipping?;
     string? name?;
-    int? next_invoice_sequence?;
-    TaxExempt tax_exempt?;
-    CustomerTaxIdDataParams? tax_id_data?;
+    int? nextInvoiceSequence?;
+    TaxExempt taxExempt?;
+    CustomerTaxIdDataParams? taxIdData?;
 };
 
 # Contains information about default invoice settings for a customer.
 # 
 # + name - Custom field name
 # + value - Custom field value
-# + default_payment_method - ID of a payment method that’s attached to the customer.
+# + defaultPaymentMethod - ID of a payment method that’s attached to the customer.
 #                           This will be used as the customer’s default payment method for subscriptions and invoices
 # + footer - Default footer to be displayed on invoices for this customer
 public type CustomerInvoiceCustomFieldParams record {
     string? name?;
     string? value?;
-    string? default_payment_method?;
+    string? defaultPaymentMethod?;
     string? footer?;
 };
 
@@ -73,12 +73,12 @@ public type CustomerShippingDetails record {
 
 # The customer’s tax IDs.
 # 
-# + tax_id_type - Type of the tax ID. One of the values: `EU_VAT`, `BR_CNPJ`, `BR_CPF`, `NZ_GST`, `AU_ABN`, `IN_GST`, `NO_VAT`, 
+# + taxIdType - Type of the tax ID. One of the values: `EU_VAT`, `BR_CNPJ`, `BR_CPF`, `NZ_GST`, `AU_ABN`, `IN_GST`, `NO_VAT`, 
 #                 `ZA_VAT`, `CH_VAT`, `MX_RFC`, `SG_UEN`, `RU_INN`, `CA_BN`, `HK_BR`, `ES_CIF`, `tw_vat`, `TW_VAT`, 
 #                 `JP_CN`, `LI_UID`, `MY_ITN`, `US_EIN`, `KR_BRN`, `CA_QST`, `MY_SST`, or `SG_GST`
 # + value - Value of the tax ID
 public type CustomerTaxIdDataParams record {
-    TaxIdType? tax_id_type?;
+    TaxIdType? taxIdType?;
     string? value?;
 };
 

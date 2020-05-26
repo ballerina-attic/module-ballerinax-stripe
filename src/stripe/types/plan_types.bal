@@ -23,22 +23,22 @@
 #             product or a dictionary containing fields used to create a service product
 # + active - Specifies whether the plan is currently available for new subscriptions
 # + nickname - A brief description of the plan, which is hidden from customers
-# + aggregate_usage - Specifies a usage aggregation strategy for plans of `usage_type=metered`. 
+# + aggregateUsage - Specifies a usage aggregation strategy for plans of `usage_type=metered`. 
 #                     Allowed values are `SUM` for summing up all usage during a period, `LAST_DURING_PERIOD` for using the 
 #                     last usage record reported within a period, `LAST_EVER` for using the last usage record ever 
 #                     (across period bounds), or `MAX`, which uses the usage record with the maximum reported usage during a period
-# + amount_decimal - This is the same as `amount` but accepts a decimal value with at most 12 decimal places. 
+# + amountDecimal - This is the same as `amount` but accepts a decimal value with at most 12 decimal places. 
 #                    Only one from the `amount` and `amount_decimal` can be set
-# + billing_scheme - Describes how to compute the price per period. Either `TIERED` or `PER_UNIT`
+# + billingScheme - Describes how to compute the price per period. Either `TIERED` or `PER_UNIT`
 # + id - Plan ID. An identifier, which is generated randomly by Stripe
 # + tiers - Represents the pricing tiers. This parameter requires the `billing_scheme` to be set to `TIERED`
-# + tiers_mode - Defines if the tiering price should be `graduated` or `volume based`
-# + interval_count - The number of intervals between subscription billings. For example, `interval=MONTH` and 
+# + tiersMode - Defines if the tiering price should be `graduated` or `volume based`
+# + intervalCount - The number of intervals between subscription billings. For example, `interval=MONTH` and 
 #                    `interval_count=3` bills every 3 months
-# + transform_usage - Apply a transformation to the reported usage or set the quantity before computing the billed price. 
+# + transformUsage - Apply a transformation to the reported usage or set the quantity before computing the billed price. 
 #                    This cannot be combined with `tiers`
-# + trial_period_days - Default number of trial days when subscribing a customer to this plan using the `trial_from_plan=true`
-# + usage_type - Configures how the quantity per period should be determined. This can be either `METERED` or `LICENSED`
+# + trialPeriodDays - Default number of trial days when subscribing a customer to this plan using the `trial_from_plan=true`
+# + usageType - Configures how the quantity per period should be determined. This can be either `METERED` or `LICENSED`
 public type Plan record {
     int? amount?;
     string? currency?;
@@ -46,16 +46,16 @@ public type Plan record {
     PlanProduct|string? product?;
     boolean? active?;
     string? nickname?;
-    AggregateUsage? aggregate_usage?;
-    float|string? amount_decimal?;
-    BillingScheme? billing_scheme?;
+    AggregateUsage? aggregateUsage?;
+    float|string? amountDecimal?;
+    BillingScheme? billingScheme?;
     string? id?;
     PlanTierParams[]? tiers?;
-    string? tiers_mode?;
-    int? interval_count?;
-    PlanTransformUsageParams? transform_usage?;
-    int? trial_period_days?;
-    UsageType? usage_type?;
+    string? tiersMode?;
+    int? intervalCount?;
+    PlanTransformUsageParams? transformUsage?;
+    int? trialPeriodDays?;
+    UsageType? usageType?;
 };
 
 # Configurations associated in creating a service product.
@@ -63,40 +63,40 @@ public type Plan record {
 # + active - Specifies whether the product is currently available for purchase
 # + id - The identifier for the product. If not provided, an identifier will be generated randomly 
 # + name - Product name
-# + statement_descriptor - A description to be displayed on customer’s credit card or bank statement
-# + unit_label - A label, which represents units of this product in Stripe and on customers’ receipts and invoices
+# + statementDescriptor - A description to be displayed on customer’s credit card or bank statement
+# + unitLabel - A label, which represents units of this product in Stripe and on customers’ receipts and invoices
 public type PlanProduct record {
     boolean? active?;              
     string? id?;
     string? name;
-    string? statement_descriptor?;
-    string? unit_label?;
+    string? statementDescriptor?;
+    string? unitLabel?;
 };
 
 # Configurations associated with pricing tiers.
 # 
-# + flat_amount - The flat billing amount for an entire tier regardless of the number of units in the tier
-# + flat_amount_decimal - Same as the `flat_amount` but this accepts a decimal value representing an integer in the 
+# + flatAmount - The flat billing amount for an entire tier regardless of the number of units in the tier
+# + flatAmountDecimal - Same as the `flat_amount` but this accepts a decimal value representing an integer in the 
 #                         minor units of the currency. Only one from the `flat_amount` and flat_`amount_decimal` can be set
-# + unit_amount - The per unit billing amount for each individual unit for which this tier applies
-# + unit_amount_decimal - Same as the `unit_amount` but this accepts a decimal value with at most 12 decimal places. 
+# + unitAmount - The per unit billing amount for each individual unit for which this tier applies
+# + unitAmountDecimal - Same as the `unit_amount` but this accepts a decimal value with at most 12 decimal places. 
 #                         Only one from the `unit_amount` and `unit_amount_decimal` can be set
-# + up_to - Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the 
+# + upTo - Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the 
 #           previous tier by adding one. Use `inf` to define a fallback tier
 public type PlanTierParams record {
-    int? flat_amount?;
-    float|string? flat_amount_decimal?;
-    int|string? unit_amount?;
-    float|string? unit_amount_decimal?;
-    string? up_to?;
+    int? flatAmount?;
+    float|string? flatAmountDecimal?;
+    int|string? unitAmount?;
+    float|string? unitAmountDecimal?;
+    string? upTo?;
 };
 
 # Configurations associated with transformation.
 # 
-# + divide_by - Divide usage by this number
+# + divideBy - Divide usage by this number
 # + round - After division, either round the result `UP` or `DOWN`
 public type PlanTransformUsageParams record {
-    int? divide_by?;
+    int? divideBy?;
     Round? round?;
 };
 

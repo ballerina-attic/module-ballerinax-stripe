@@ -17,39 +17,39 @@
 # Contains information about an invoice.
 # 
 # + customer - The ID of the customer who will be billed
-# + auto_advance - Controls whether Stripe will perform automatic collection of the invoice. 
+# + autoAdvance - Controls whether Stripe will perform automatic collection of the invoice. 
 # 				   When false, the invoice’s state will not automatically advance without an explicit action
-# + collection_method - Collection method. Either `CHARGE_AUTOMATICALLY` or `SEND_INVOICE`
+# + collectionMethod - Collection method. Either `CHARGE_AUTOMATICALLY` or `SEND_INVOICE`
 # + description - A string holding a description of the invoice
 # + subscription - The ID of the subscription to invoice if any. If not set, the created invoice will 
 # 				   include all pending invoice items for the customer
-# + application_fee_amount - A fee in cents, which will be applied to the invoice and transferred to the 
+# + applicationFeeAmount - A fee in cents, which will be applied to the invoice and transferred to the 
 #                            application owner’s Stripe account
-# + custom_fields - A list of up to 4 custom fields to be displayed on the invoice
-# + days_until_due - The number of days from when the invoice is created until it is due. This is valid only for 
+# + customFields - A list of up to 4 custom fields to be displayed on the invoice
+# + daysUntilDue - The number of days from when the invoice is created until it is due. This is valid only for 
 # 				     invoices in which the `collection_method=send_invoice`.
-# + default_payment_method - ID of the default payment method for the invoice
-# + default_source - ID of the default payment source for the invoice
-# + tax_rates - The tax rates that will apply to any line item that does not have tax_rates set
-# + due_date - The date on which the payment for this invoice is due. This is valid only for invoices in which the 
+# + defaultPaymentMethod - ID of the default payment method for the invoice
+# + defaultSource - ID of the default payment source for the invoice
+# + taxRates - The tax rates that will apply to any line item that does not have tax_rates set
+# + dueDate - The date on which the payment for this invoice is due. This is valid only for invoices in which the 
 # 			    `collection_method=send_invoice`
 # + footer - Footer to be displayed on the invoice
-# + statement_descriptor - Extra information about a charge for the customer’s credit card statement
+# + statementDescriptor - Extra information about a charge for the customer’s credit card statement
 public type Invoice record {
     string? customer?;
-    boolean? auto_advance?;
-    CollectionMethod? collection_method?;
+    boolean? autoAdvance?;
+    CollectionMethod? collectionMethod?;
     string? description?;
     string? subscription?;
-    int? application_fee_amount?;
-    InvoiceCustomFields? custom_fields?;
-    int? days_until_due?;
-    string? default_payment_method?;
-    string? default_source?;
-    string[]? tax_rates?;
-    int? due_date?;
+    int? applicationFeeAmount?;
+    InvoiceCustomFields? customFields?;
+    int? daysUntilDue?;
+    string? defaultPaymentMethod?;
+    string? defaultSource?;
+    string[]? taxRates?;
+    int? dueDate?;
     string? footer?;
-    string? statement_descriptor?;	
+    string? statementDescriptor?;	
 };
 
 # A list of up to 4 custom fields to be displayed on the invoice.
@@ -66,18 +66,18 @@ public type InvoiceCustomFields record {
 # + forgive - In cases, which the source used to pay the invoice has insufficient funds, passing `forgive=true` 
 #             controls whether a charge should be attempted for the full amount available on the source up to 
 #             the amount to pay the invoice completely
-# + off_session - Indicates if a customer is on or off-session while an invoice payment is attempted
-# + paid_out_of_band - Boolean representing whether an invoice is paid outside of Stripe. This will result in no 
+# + offSession - Indicates if a customer is on or off-session while an invoice payment is attempted
+# + paidOutOfBand - Boolean representing whether an invoice is paid outside of Stripe. This will result in no 
 #                      charge being made
-# + payment_method - A payment method to be charged. The payment method must be the ID of a `PaymentMethod` belonging 
+# + paymentMethod - A payment method to be charged. The payment method must be the ID of a `PaymentMethod` belonging 
 #                    to the customer associated with the invoice being paid
 # + source - A payment source to be charged. The source must be the ID of a source belonging to the customer associated 
 #            with the invoice being paid
 public type InvoicePay record {
     boolean forgive?;
-    boolean off_session?;
-    boolean paid_out_of_band?;
-    string payment_method?;
+    boolean offSession?;
+    boolean paidOutOfBand?;
+    string paymentMethod?;
     string 'source;
 };
 
@@ -93,12 +93,12 @@ public type InvoicePay record {
 #                  Defaults to `false` for prorations or negative invoice items and `true` for all other invoice items
 # + invoice - The ID of an existing invoice to add this invoice item 
 # + period - The period associated with this invoice item
-# + price_data - Data used to generate a new price object inline
+# + priceData - Data used to generate a new price object inline
 # + quantity - Non-negative integer. The quantity of units for the invoice item
 # + subscription - The ID of a subscription to add this invoice item 
-# + tax_rates - The tax rates, which apply to the invoice item
-# + unit_amount - The integer unit amount in cents of the charge to be applied to the upcoming invoice
-# + unit_amount_decimal - Same as the `unit_amount` but this accepts a decimal value with at most 12 decimal places. 
+# + taxRates - The tax rates, which apply to the invoice item
+# + unitAmount - The integer unit amount in cents of the charge to be applied to the upcoming invoice
+# + unitAmountDecimal - Same as the `unit_amount` but this accepts a decimal value with at most 12 decimal places. 
 #                         Only one from the `unit_amount` and `unit_amount_decimal` can be set
 public type InvoiceItem record {
     string? customer?;
@@ -109,12 +109,12 @@ public type InvoiceItem record {
     boolean? discountable?;
     string? invoice?;
     Period? period?;
-    PriceData? price_data?;
+    PriceData? priceData?;
     int? quantity?;
     string? subscription?;
-    string[]? tax_rates?;
-    int? unit_amount?;
-    float|string? unit_amount_decimal?;
+    string[]? taxRates?;
+    int? unitAmount?;
+    float|string? unitAmountDecimal?;
 };
 
 # The period associated with this invoice item.
@@ -130,12 +130,12 @@ public type Period record {
 # 
 # + currency - Three-letter ISO currency code in lowercase. Must be a supported currency
 # + product - The ID of the product to which this price will belong 
-# + unit_amount - A positive integer in cents (or 0 for a free price) representing how much to charge
-# + unit_amount_decimal - Same as the `unit_amount` but this accepts a decimal value with at most 12 decimal places. 
+# + unitAmount - A positive integer in cents (or 0 for a free price) representing how much to charge
+# + unitAmountDecimal - Same as the `unit_amount` but this accepts a decimal value with at most 12 decimal places. 
 #                         Only one from the `unit_amount` and `unit_amount_decimal` can be set
 public type PriceData record {
     string? currency;
     string? product;
-    int? unit_amount?;
-    float? unit_amount_decimal?;
+    int? unitAmount?;
+    float? unitAmountDecimal?;
 };

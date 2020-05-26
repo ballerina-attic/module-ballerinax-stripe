@@ -22,6 +22,7 @@ function mapToPlanRecord(http:Response response) returns @tainted Plan|Error {
         return setJsonResError(payload);
     } else {
         check checkForErrorResponse(payload);
+        convertJsonToCamelCase(payload);
         Plan|error plan = Plan.constructFrom(payload);
         if (plan is error) {
             return Error(message = "Response cannot be converted to Plan record", cause = plan);
@@ -42,7 +43,9 @@ function mapToPlans(http:Response response) returns @tainted Plan[]|Error {
         }
         json plansJson = <json> plans;
         check checkForErrorResponse(plansJson);
-        Plan[]|error plansList = Plan[].constructFrom(plansJson);
+        json[] planJsonArr = <json[]> plansJson;
+        convertJsonArrayToCamelCase(planJsonArr);
+        Plan[]|error plansList = Plan[].constructFrom(planJsonArr);
         if (plansList is error) {
             return Error(message = "Response cannot be converted to Plan record array", cause = plansList);
         } else {
