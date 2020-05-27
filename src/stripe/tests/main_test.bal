@@ -39,7 +39,7 @@ function testCustomerFunctions() {
         anydata result = createdCustomer["id"];
         if (result is string) {
             customerId = <@untainted> result;
-        }
+        } 
     }
 
     Customer|Error? retrievedCustomer = customers->retrieve(customerId);
@@ -50,6 +50,8 @@ function testCustomerFunctions() {
             string? email = retrievedCustomer["email"];
             if (email is string) {
                 test:assertEquals(email, "b7astripe@gmail.com");
+            } else {
+                test:assertFail(msg = "Expected email not found");
             }
         }
     }
@@ -60,7 +62,9 @@ function testCustomerFunctions() {
     } else {
         string? description = updatedCustomer["description"];
         if (description is string) {
-           test:assertEquals(description, "Updated description");
+            test:assertEquals(description, "Updated description");
+        } else {
+            test:assertFail(msg = "Expected description not found");
         }
     }
 
@@ -95,6 +99,8 @@ function testProductFunctions() {
             string? caption = retrievedProduct["caption"];
             if (caption is string) {
                 test:assertEquals(caption, "thisisthecaption");
+            } else {
+                test:assertFail(msg = "Expected caption not found");
             }
         }
     }
@@ -106,6 +112,8 @@ function testProductFunctions() {
         string? description = updatedProduct["description"];
         if (description is string) {
            test:assertEquals(description, "Updated description");
+        } else {
+            test:assertFail(msg = "Expected description not found");
         }
     }
 
@@ -205,7 +213,7 @@ function testSubscriptionFunctions() {
     } else {
         string? method = updatedSubscription["collectionMethod"];
         if (method is string) {
-           test:assertEquals(method, "send_invoice");
+            test:assertEquals(method, "send_invoice");
         } else {
             test:assertFail(msg = "method is ()");
         }
@@ -244,6 +252,8 @@ function testInvoiceFunctions() {
             string? customerId = retrievedInvoice["customer"];
             if (customerId is string) {
                 test:assertEquals(customerId, "cus_HHWIJPAUfcXYNH");
+            } else {
+                test:assertFail(msg = "Expected customerId not found");
             }
         }
     }
@@ -256,6 +266,8 @@ function testInvoiceFunctions() {
             string? description = updatedInvoice["description"];
             if (description is string) {
                 test:assertEquals(description, "update description");
+            } else {
+                test:assertFail(msg = "Expected description not found");
             }
         }
     }

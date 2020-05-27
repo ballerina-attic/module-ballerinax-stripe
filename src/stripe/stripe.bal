@@ -28,16 +28,20 @@ public type Account object {
     private Plans plans;
     private Subscriptions subscriptions;
 
-    public function __init(string token) {
+    public function __init(string token, Configuration? stripeConfig = ()) {
         oauth2:DirectTokenConfig oauth2Config = {
             accessToken: token
         };
         oauth2:OutboundOAuth2Provider oauth2Provider = new(oauth2Config);
         http:BearerAuthHandler oauth2Handler = new(oauth2Provider);
+        int? timeOut = stripeConfig?.timeoutInMillis;
         http:ClientConfiguration clientConfig = {
             auth: {
                 authHandler: oauth2Handler
-            }
+            },
+            secureSocket: stripeConfig?.secureSocketConfig,
+            timeoutInMillis: timeOut is int ? timeOut : 6000,
+            retryConfig: stripeConfig?.retryConfig
         };
         self.stripe = new(BASE_URL, config = clientConfig);
         self.charges = new(self.stripe);

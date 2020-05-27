@@ -1,3 +1,4 @@
+import ballerina/http;
 // Copyright (c) 2020 WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 //
 // WSO2 Inc. licenses this file to you under the Apache License,
@@ -62,3 +63,14 @@ public type Card record {
 
 # Defines the possible values for collection method.
 public type CollectionMethod CHARGE_AUTOMATICALLY|SEND_INVOICE;
+
+# The configuration used to create a Stripe `Client`.
+#
+# + secureSocketConfig - The secure connection configuration
+# + timeoutInMillis - The maximum time to wait (in milliseconds) for a response before closing the connection
+# + retryConfig - The configurations associated with retrying
+public type Configuration record {|
+    http:ClientSecureSocket secureSocketConfig?;
+    int timeoutInMillis?;
+    http:RetryConfig retryConfig?;
+|};
