@@ -63,7 +63,7 @@ public type Invoices client object {
     #
     # + invoiceId - Invoice ID
     # + return - `()` if the invoice is deleted succesfully or else a `stripe:Error` if the invoice has been already deleted
-    public remote function deleteDraft(string invoiceId) returns @tainted Error? {
+    public remote function deleteDraft(string invoiceId) returns Error? {
         string path = INVOICE_PATH + BACK_SLASH + invoiceId;
         http:Response response = check createDeleteRequest(self.invoices, path);
         return checkDeleteResponse(response);

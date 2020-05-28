@@ -32,7 +32,7 @@ string planId = "";
 
 @test:Config {}
 function testCustomerFunctions() {
-    Customer|Error? createdCustomer = customers->create(customerParams);
+    Customer|Error createdCustomer = customers->create(customerParams);
     if (createdCustomer is Error) {
         test:assertFail(msg = <string>createdCustomer.detail()?.message);
     } else {
@@ -42,21 +42,19 @@ function testCustomerFunctions() {
         } 
     }
 
-    Customer|Error? retrievedCustomer = customers->retrieve(customerId);
+    Customer|Error retrievedCustomer = customers->retrieve(customerId);
     if (retrievedCustomer is Error) {
         test:assertFail(msg = <string>retrievedCustomer.detail()?.message);
     } else {
-        if (retrievedCustomer is Customer) {
-            string? email = retrievedCustomer["email"];
-            if (email is string) {
-                test:assertEquals(email, "b7astripe@gmail.com");
-            } else {
-                test:assertFail(msg = "Expected email not found");
-            }
+        string? email = retrievedCustomer["email"];
+        if (email is string) {
+            test:assertEquals(email, "b7astripe@gmail.com");
+        } else {
+            test:assertFail(msg = "Expected email not found");
         }
     }
 
-    Customer|Error? updatedCustomer = customers->update(customerId, customerUpdateParams);
+    Customer|Error updatedCustomer = customers->update(customerId, customerUpdateParams);
     if (updatedCustomer is Error) {
         test:assertFail(msg = <string>updatedCustomer.detail()?.message);
     } else {
@@ -68,7 +66,7 @@ function testCustomerFunctions() {
         }
     }
 
-    Customer[]|Error? listCustomers = customers->list();
+    Customer[]|Error listCustomers = customers->list();
     if (listCustomers is Error) {
         test:assertFail(msg = <string>listCustomers.detail()?.message);
     }
@@ -81,7 +79,7 @@ function testCustomerFunctions() {
 
 @test:Config {}
 function testProductFunctions() {
-    Product|Error? createdProduct = products->create(product);
+    Product|Error createdProduct = products->create(product);
     if (createdProduct is Error) {
         test:assertFail(msg = <string>createdProduct.detail()?.message);
     } else {
@@ -91,21 +89,19 @@ function testProductFunctions() {
         }
     }
 
-    Product|Error? retrievedProduct = products->retrieve(productId);
+    Product|Error retrievedProduct = products->retrieve(productId);
     if (retrievedProduct is Error) {
         test:assertFail(msg = <string>retrievedProduct.detail()?.message);
     } else {
-        if (retrievedProduct is Product) {
-            string? caption = retrievedProduct["caption"];
-            if (caption is string) {
-                test:assertEquals(caption, "thisisthecaption");
-            } else {
-                test:assertFail(msg = "Expected caption not found");
-            }
+        string? caption = retrievedProduct["caption"];
+        if (caption is string) {
+            test:assertEquals(caption, "thisisthecaption");
+        } else {
+            test:assertFail(msg = "Expected caption not found");
         }
     }
 
-    Product|Error? updatedProduct = products->update(productId, updateProduct);
+    Product|Error updatedProduct = products->update(productId, updateProduct);
     if (updatedProduct is Error) {
         test:assertFail(msg = <string>updatedProduct.detail()?.message);
     } else {
@@ -117,7 +113,7 @@ function testProductFunctions() {
         }
     }
 
-    Product[]|Error? listProducts = products->list();
+    Product[]|Error listProducts = products->list();
     if (listProducts is Error) {
         test:assertFail(msg = <string>listProducts.detail()?.message);
     }
@@ -130,7 +126,7 @@ function testProductFunctions() {
 
 @test:Config {}
 function testPlanFunctions() {
-    Plan|Error? createdPlan = plans->create(plan);
+    Plan|Error createdPlan = plans->create(plan);
     if (createdPlan is Error) {
         test:assertFail(msg = <string>createdPlan.detail()?.message);
     } else {
@@ -144,21 +140,19 @@ function testPlanFunctions() {
         }
     }
 
-    Plan|Error? retrievedPlan = plans->retrieve(planId);
+    Plan|Error retrievedPlan = plans->retrieve(planId);
     if (retrievedPlan is Error) {
         test:assertFail(msg = <string>retrievedPlan.detail()?.message);
     } else {
-        if (retrievedPlan is Plan) {
-            string? billingScheme = retrievedPlan["billingScheme"];
-            if (billingScheme is string) {
-                test:assertEquals(billingScheme, "tiered");
-            } else {
-                test:assertFail(msg = "Billing scheme is ()");
-            }
+        string? billingScheme = retrievedPlan["billingScheme"];
+        if (billingScheme is string) {
+            test:assertEquals(billingScheme, "tiered");
+        } else {
+            test:assertFail(msg = "Billing scheme is ()");
         }
     }
 
-    Plan|Error? updatedPlan = plans->update(planId, updatePlan);
+    Plan|Error updatedPlan = plans->update(planId, updatePlan);
     if (updatedPlan is Error) {
         test:assertFail(msg = <string>updatedPlan.detail()?.message);
     } else {
@@ -170,7 +164,7 @@ function testPlanFunctions() {
         }
     }
 
-    Plan[]|Error? listPlans = plans->list();
+    Plan[]|Error listPlans = plans->list();
     if (listPlans is Error) {
         test:assertFail(msg = <string>listPlans.detail()?.message);
     }
@@ -188,26 +182,24 @@ function testPlanFunctions() {
 
 @test:Config {}
 function testSubscriptionFunctions() {
-    Subscription|Error? retrievedSubscription = subscriptions->retrieve("sub_HHWxOzSGhAnDfZ");
+    Subscription|Error retrievedSubscription = subscriptions->retrieve("sub_HHWxOzSGhAnDfZ");
     if (retrievedSubscription is Error) {
         test:assertFail(msg = <string>retrievedSubscription.detail()?.message);
     } else {
-        if (retrievedSubscription is Subscription) {
-            string? method = retrievedSubscription["collectionMethod"];
-            if (method is string) {
-                test:assertEquals(method, "send_invoice");
-            } else {
-                test:assertFail(msg = "method is ()");
-            }
+        string? method = retrievedSubscription["collectionMethod"];
+        if (method is string) {
+            test:assertEquals(method, "send_invoice");
+        } else {
+            test:assertFail(msg = "method is ()");
         }
     }
 
-    Subscription[]|Error? listSubscriptions = subscriptions->list();
+    Subscription[]|Error listSubscriptions = subscriptions->list();
     if (listSubscriptions is Error) {
         test:assertFail(msg = <string>listSubscriptions.detail()?.message);
     }
 
-    Subscription|Error? updatedSubscription = subscriptions->update("sub_HHWxOzSGhAnDfZ", updateSubs);
+    Subscription|Error updatedSubscription = subscriptions->update("sub_HHWxOzSGhAnDfZ", updateSubs);
     if (updatedSubscription is Error) {
         test:assertFail(msg = <string>updatedSubscription.detail()?.message);
     } else {
@@ -222,21 +214,19 @@ function testSubscriptionFunctions() {
 
 @test:Config {}
 function testChargeFunctions() {
-    Charge|Error? retrievedCharge= charges->retrieve("ch_1Gjz58J7y0eOXqiMuskxrhFa");
+    Charge|Error retrievedCharge= charges->retrieve("ch_1Gjz58J7y0eOXqiMuskxrhFa");
     if (retrievedCharge is Error) {
         test:assertFail(msg = <string>retrievedCharge.detail()?.message);
     } else {
-        if (retrievedCharge is Charge) {
-            anydata email = retrievedCharge["receiptEmail"];
-            if (email is string) {
-                test:assertEquals(email, "bhashi@gmail.com");
-            } else {
-                test:assertFail(msg = "email is ()");
-            }
+        anydata email = retrievedCharge["receiptEmail"];
+        if (email is string) {
+            test:assertEquals(email, "bhashi@gmail.com");
+        } else {
+            test:assertFail(msg = "email is ()");
         }
     }
 
-    Charge[]|Error? listCharges = charges->list();
+    Charge[]|Error listCharges = charges->list();
     if (listCharges is Error) {
         test:assertFail(msg = <string>listCharges.detail()?.message);
     }
@@ -244,35 +234,31 @@ function testChargeFunctions() {
     
 @test:Config {}
 function testInvoiceFunctions() {
-    Invoice|Error? retrievedInvoice= invoices->retrieve("in_1GkAJKJ7y0eOXqiMsWkHIA4m");
+    Invoice|Error retrievedInvoice= invoices->retrieve("in_1GkAJKJ7y0eOXqiMsWkHIA4m");
     if (retrievedInvoice is Error) {
         test:assertFail(msg = <string>retrievedInvoice.detail()?.message);
     } else {
-        if (retrievedInvoice is Invoice) {
-            string? customerId = retrievedInvoice["customer"];
-            if (customerId is string) {
-                test:assertEquals(customerId, "cus_HHWIJPAUfcXYNH");
-            } else {
-                test:assertFail(msg = "Expected customerId not found");
-            }
+        string? customerId = retrievedInvoice["customer"];
+        if (customerId is string) {
+            test:assertEquals(customerId, "cus_HHWIJPAUfcXYNH");
+        } else {
+            test:assertFail(msg = "Expected customerId not found");
         }
     }
 
-    Invoice|Error? updatedInvoice= invoices->update("in_1GkAJKJ7y0eOXqiMsWkHIA4m", updateInvo);
+    Invoice|Error updatedInvoice= invoices->update("in_1GkAJKJ7y0eOXqiMsWkHIA4m", updateInvo);
     if (updatedInvoice is Error) {
         test:assertFail(msg = <string>updatedInvoice.detail()?.message);
     } else {
-        if (updatedInvoice is Invoice) {
-            string? description = updatedInvoice["description"];
-            if (description is string) {
-                test:assertEquals(description, "update description");
-            } else {
-                test:assertFail(msg = "Expected description not found");
-            }
+        string? description = updatedInvoice["description"];
+        if (description is string) {
+            test:assertEquals(description, "update description");
+        } else {
+            test:assertFail(msg = "Expected description not found");
         }
     }
 
-    Invoice[]|Error? listInvoices = invoices->list();
+    Invoice[]|Error listInvoices = invoices->list();
     if (listInvoices is Error) {
         test:assertFail(msg = <string>listInvoices.detail()?.message);
     }

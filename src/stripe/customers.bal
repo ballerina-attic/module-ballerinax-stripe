@@ -61,7 +61,7 @@ public type Customers client object {
     #
     # + customerId - Customer ID
     # + return - `()` or else a `stripe:Error` in case of a failure
-    public remote function delete(string customerId) returns @tainted Error? {
+    public remote function delete(string customerId) returns Error? {
         string path = CUSTOMER_PATH + BACK_SLASH + customerId;
         http:Response response = check createDeleteRequest(self.customers, path);
         return checkDeleteResponse(response);

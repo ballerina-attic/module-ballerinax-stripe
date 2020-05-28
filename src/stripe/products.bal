@@ -62,7 +62,7 @@ public type Products client object {
    #
    # + productId - Product ID
    # + return - `()` or else a `stripe:Error` in case of a failure
-   public remote function delete(string productId) returns @tainted Error? {
+   public remote function delete(string productId) returns Error? {
      string path = PRODUCT_PATH + BACK_SLASH + productId;
      http:Response response = check createDeleteRequest(self.products, path);
      return checkDeleteResponse(response);
