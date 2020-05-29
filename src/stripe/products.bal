@@ -27,6 +27,10 @@ public type Products client object {
     }
 
     # Creates a product.
+    # ```ballerina
+    # stripe:Product productParams = { name: "Blue Cup" };
+    # stripe:Error|stripe:Product createdProduct = products->create(productParams);
+    # ```
     #
     # + product - Product configurations
     # + return - `Product` record or else a `stripe:Error` in case of a failure
@@ -37,6 +41,10 @@ public type Products client object {
     }
  
    # Retrieves a product.
+   # ```ballerina
+   # stripe:Product|stripe:Error retrievedProduct = products->retrieve("<product-id>");
+   # ```
+   # 
    #
    # + productId - Product ID
    # + return - `Product` record or else a `stripe:Error` in case of a failure
@@ -47,6 +55,11 @@ public type Products client object {
    } 
    
    # Updates a Product.
+   # ```ballerina
+   # stripe:Product productParams = { description: "Updated description" };
+   # stripe:Product|stripe:Error updatedProduct = products->update("<product-id>"", productParams);
+   # ```
+   # 
    #
    # + productId - Product ID
    # + product - Product configurations
@@ -59,6 +72,9 @@ public type Products client object {
    }
  
    # Deletes a product.
+   # ```ballerina
+   # stripe:Error? deleteProduct = products->delete("<product-id>");
+   # ```
    #
    # + productId - Product ID
    # + return - `()` or else a `stripe:Error` in case of a failure
@@ -69,6 +85,9 @@ public type Products client object {
    }
  
    # Lists all products.
+   # ```ballerina
+   # stripe:Product[]|stripe:Error productList = products->list();
+   # ```
    #
    # + return - An array of `Product` records or else a `stripe:Error`
    public remote function list() returns @tainted Product[]|Error {

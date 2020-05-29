@@ -28,6 +28,10 @@ public type Account object {
     private Plans plans;
     private Subscriptions subscriptions;
 
+    # Gets invoked to initialize the `stripe:Account`. 
+    # ```ballerina
+    # stripe:Account account = new("<stripeToken>");
+    # ```
     public function __init(string token, Configuration? stripeConfig = ()) {
         oauth2:DirectTokenConfig oauth2Config = {
             accessToken: token
@@ -53,6 +57,9 @@ public type Account object {
     } 
 
     # Gets the customers client.
+    # ```ballerina
+    # stripe:Customers customers = account.customers();
+    # ```
     #
     # + return - The customers client
     public function customers() returns Customers {
@@ -60,6 +67,9 @@ public type Account object {
     }
 
     # Gets the products client.
+    # ```ballerina
+    # stripe:Products products = account.products();
+    # ```
     #
     # + return - The products client
     public function products() returns Products {
@@ -67,6 +77,9 @@ public type Account object {
     }
 
     # Gets the charges client.
+    # ```ballerina
+    # stripe:Charges charges = account.charges();
+    # ```
     #
     # + return - The charges client
     public function charges() returns Charges {
@@ -74,6 +87,9 @@ public type Account object {
     }
 
     # Gets the subscriptions client.
+    # ```ballerina
+    # stripe:Subscriptions subscriptions = account.subscriptions();
+    # ```
     #
     # + return - The subscriptions client
     public function subscriptions() returns Subscriptions {
@@ -81,6 +97,9 @@ public type Account object {
     }
 
     # Gets the plans client.
+    # ```ballerina
+    # stripe:Plans plans = account.plans();
+    # ```
     #
     # + return - The plans client
     public function plans() returns Plans {
@@ -88,6 +107,9 @@ public type Account object {
     }
 
     # Gets the invoices client.
+    # ```ballerina
+    # stripe:Invoices invoices = account.invoices();
+    # ```
     #
     # + return - The invoices client
     public function invoices() returns Invoices {

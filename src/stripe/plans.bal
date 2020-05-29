@@ -26,6 +26,10 @@ public type Plans client object {
     }
 
     # Creates a plan.
+    # ```ballerina
+    # stripe:Plan planParams = { currency: "usd", interval: stripe:MONTH, product: "<product-id>", amount: 2000 };
+    # stripe:Plan|stripe:Error createdPlan = plans->create(planParams);
+    # ```
     #
     # + plan - Billing plan configurations
     # + return - `Plan` record or else a `stripe:Error` in case of a failure
@@ -36,6 +40,9 @@ public type Plans client object {
     }
  
     # Retrieves a plan.
+    # ```ballerina
+    # stripe:Plan|stripe:Error retrievedPlan = plans->retrieve("<plan-id>");
+    # ```
     #
     # + planId - Plan ID
     # + return - `Plan` record or else a `stripe:Error` in case of a failure
@@ -46,6 +53,10 @@ public type Plans client object {
     }
  
     # Updates a plan.
+    # ```ballerina
+    # stripe:Plan planParams = { nickname: "PlanNickName" };
+    # stripe:Plan|stripe:Error updatedPlan = plans->update("<plan-id>", planParams);
+    # ```
     #
     # + planId - Plan ID
     # + plan - Plan configurations
@@ -58,6 +69,9 @@ public type Plans client object {
     }
  
     # Deletes a plan.
+    # ```ballerina
+    # stripe:Error? deletePlan = plans->delete("<plan-id>");
+    # ```
     #
     # + planId - Plan ID
     # + return - `()` or else a `stripe:Error` in case of a failure
@@ -68,6 +82,9 @@ public type Plans client object {
     }
  
     # Lists all plans.
+    # ```ballerina
+    # stripe:Plan[]|stripe:Error plansList = plans->list();
+    # ```
     #
     # + return - An array of `Plan` records or else a `stripe:Error`
     public remote function list() returns @tainted Plan[]|Error {

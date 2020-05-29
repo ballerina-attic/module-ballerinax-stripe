@@ -27,7 +27,11 @@ public type Invoices client object {
     }
 
     # Creates an invoice.
-    #
+    # ```ballerina
+    # stripe:Invoice invoiceParams = { customer: "<customer-id>" };
+    # stripe:Invoice|stripe:Error createdInvoice = invoices->create(invoiceParams); 
+    # ```
+    # 
     # + invoice - Invoice configurations
     # + return - `Invoice` record or else a `stripe:Error` in case of a failure
     public remote function create(Invoice invoice) returns @tainted Invoice|Error {
@@ -38,7 +42,10 @@ public type Invoices client object {
     }
 
     # Retrieves an invoice.
-    #
+    #```ballerina
+    # stripe:Invoice|stripe:Error retrievedInvoice = invoices->retrieve("<invoice-id>");
+    # ```
+    # 
     # + invoiceId - Invoice ID
     # + return - `Invoice` record or else a `stripe:Error` in case of a failure
     public remote function retrieve(string invoiceId) returns @tainted Invoice|Error {
@@ -48,6 +55,10 @@ public type Invoices client object {
     }
 
     # Updates an invoice.
+    # ```ballerina
+    # stripe:Invoice invoiceParams = { description: "update description" };
+    # stripe:Invoice|stripe:Error updatedInvoice = invoices->update("<invoice-id>", invoiceParams);
+    # ```
     #
     # + invoiceId - Invoice ID
     # + invoice - Invoice configurations
@@ -60,6 +71,9 @@ public type Invoices client object {
     }
 
     # Deletes a draft invoice.
+    # ```ballerina
+    # stripe:Error? deleteDraft = invoices->deleteDraft("<invoice-id>");
+    # ```
     #
     # + invoiceId - Invoice ID
     # + return - `()` if the invoice is deleted succesfully or else a `stripe:Error` if the invoice has been already deleted
@@ -70,6 +84,9 @@ public type Invoices client object {
     }
 
     # Finalizes an invoice.
+    # ```ballerina
+    # stripe:Invoice|stripe:Error finalizedInvoice = invoices->finalize("<invoice-id>");
+    # ```
     #
     # + invoiceId - Invoice ID
     # + autoAdvance - `true` if Stripe performs automatic collection of the invoice or `false`
@@ -82,6 +99,9 @@ public type Invoices client object {
     }
 
     # Pays an invoice.
+    # ```ballerina
+    # stripe:Invoice|stripe:Error paidInvoice = invoices->pay("<invoice-id>");
+    # ```
     #
     # + invoiceId - Invoice ID
     # + invoicePay - Parameters to be used when paying an invoice
@@ -97,6 +117,9 @@ public type Invoices client object {
     }
 
     # Sends an invoice for manual payment.
+    # ```ballerina
+    # stripe:Invoice|stripe:Error invoice = invoices->sendForMannualPayment("<invoice-id>");
+    # ```
     #
     # + invoiceId - Invoice ID
     # + return - `Invoice` record or a `stripe:Error` in case of a failure
@@ -107,6 +130,9 @@ public type Invoices client object {
     }
 
     # Voids an invoice.
+    # ```ballerina
+    # stripe:Invoice|stripe:Error voidInvoice = invoices->void("<invoice-id>");
+    # ```
     #
     # + invoiceId - Invoice ID
     # + return - `Invoice` record or a `stripe:Error` in case of a failure
@@ -117,6 +143,9 @@ public type Invoices client object {
     }
 
     # Marks an invoice as uncollectible.
+    # ```ballerina
+    # stripe:Invoice|stripe:Error uncollectibleInvoice = invoices->markInvoiceUncollectible("<invoice-id>");
+    # ```
     #
     # + invoiceId - Invoice ID
     # + return - `Invoice` record or a `stripe:Error` in case of a failure
@@ -127,6 +156,9 @@ public type Invoices client object {
     }
 
     # Lists all invoices.
+    # ```ballerina
+    # stripe:Invoice[]|stripe:Error invoicesList = invoices->list();
+    # ```
     #
     # + return - An array of `Invoice` records, or else a `stripe:Error` in case of a failure
     public remote function list() returns @tainted Invoice[]|Error {
@@ -135,6 +167,10 @@ public type Invoices client object {
     }
 
     # Creates an invoice item.
+    # ```ballerina
+    # stripe:InvoiceItem invoiceItem = { customer : "<customer-id>" };
+    # stripe:InvoiceItem|Error createdInvoiceItem = invoices->createInvoiceItem(invoiceItem);
+    # ```
     #
     # + invoiceItem - Parameters to be used when creating an invoice item
     # + return - The `InvoiceItem` record or a `stripe:Error` in case of a failure

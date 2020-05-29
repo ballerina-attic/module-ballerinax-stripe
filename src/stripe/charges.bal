@@ -28,6 +28,10 @@ public type Charges client object {
     }
 
     # Creates a charge.
+    # ```ballerina
+    # stripe:Charge chargeParams = { amount: 2000, currency: "usd", customer: "<customer-id>" };
+    # stripe:Charge|stripe:Error createdCharge = charges->create(chargeParams);
+    # ```
     #
     # + charge - Charge configurations
     # + return - `Charge` record or else a `stripe:Error` in case of a failure
@@ -39,6 +43,9 @@ public type Charges client object {
     }
 
     # Retrieves a charge.
+    # ```ballerina
+    # stripe:Error|stripe:Charge retrievedCharge = charges->retrieve("<charge-id>"); 
+    # ```
     #
     # + chargeId - Charge ID
     # + return - `Charge` record or else a `stripe:Error` in case of a failure
@@ -49,6 +56,10 @@ public type Charges client object {
     }
 
     # Updates a charge.
+    # ```ballerina
+    # stripe:Charge chargeParams = { description: "Updated description" };
+    # stripe:Error|stripe:Charge updatedCharge = charges->update("<charge-id>", charge);
+    # ```
     #
     # + chargeId - Charge ID
     # + charge - Charge configurations
@@ -61,6 +72,9 @@ public type Charges client object {
     }
 
     # Captures a charge.
+    # ```ballerina
+    # stripe:Charge|stripe:Error capturedCharge = charges->capture("<charge-id>");
+    # ```
     #
     # + chargeId - Charge ID
     # + capture - Capture charge configurations
@@ -76,6 +90,9 @@ public type Charges client object {
     }
 
     # Lists all charges.
+    # ```ballerina
+    # stripe:Error|stripe:Charge[] chargesList = charges->list();
+    # ```
     #
     # + return - An array of `Charge` records or else a `stripe:Error` for non-existent customer IDs
     public remote function list() returns @tainted Charge[]|Error {

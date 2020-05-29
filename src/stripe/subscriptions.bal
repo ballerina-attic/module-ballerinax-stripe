@@ -27,6 +27,10 @@ public type Subscriptions client object {
    }
 
    # Creates a subscription.
+   # ```ballerina
+   # stripe:Subscription subscriptionParams = { customer: "<customer-id>", subscriptionItems: [{ plan: "<plan-id>"] };
+   # stripe:Subscription|stripe:Error createdSubscription = subscriptions->create(subscriptionParams);
+   # ```
    #
    # + subscription - Subscription configurations
    # + return - `Subscription` record or else a `stripe:Error` in case of a failure
@@ -38,6 +42,9 @@ public type Subscriptions client object {
    }
 
    # Retrieves a subscription.
+   # ```ballerina
+   # stripe:Subscription|stripe:Error retrievedSubscription = subscriptions->retrieve("<subscription-id>");
+   # ```
    #
    # + subscriptionId - Subscription ID
    # + return - `Subscription` record or else a `stripe:Error` in case of a failure
@@ -48,6 +55,11 @@ public type Subscriptions client object {
    }
 
    # Updates a Subscription.
+   # ```ballerina
+   # stripe:Subscription subscriptionParams = { cancelAtPeriodEnd: false, billingThresholds: 
+   #             { amountGte: 100, resetBillingCycleAnchor: false }, collectionMethod: "send_invoice", daysUntilDue: 30 };
+   # stripe:Subscription|stripe:Error updatedSubscription = subscriptions->update("<subscription-id>", subscriptionParams);
+   # ```
    #
    # + subscriptionId - Subscription ID
    # + subscription - Subscription configurations
@@ -60,7 +72,10 @@ public type Subscriptions client object {
       return mapToSubscriptionRecord(response);
    }
 
-   # Deletes a subscription.
+   # Cancels a subscription.
+   # ```ballerina
+   # stripe:Error|stripe:Subscription cancelSubscription = subscriptions->cancel("<subscription-id>");
+   # ```
    #
    # + subscriptionId - Subscription ID
    # + return - `()` or else a `stripe:Error` in case of a failure
@@ -71,6 +86,9 @@ public type Subscriptions client object {
    }
 
    # Lists all subscriptions.
+   # ```ballerina
+   # stripe:Error|stripe:Subscription[] subscriptionsList = subscriptions->list();
+   # ```
    #
    # + return - An array of `Subscription` records or else a `stripe:Error` in case of a failure
    public remote function list() returns @tainted Subscription[]|Error {

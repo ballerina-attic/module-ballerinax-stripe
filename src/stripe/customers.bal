@@ -26,6 +26,10 @@ public type Customers client object {
     }
 
     # Creates a customer.
+    # ```ballerina
+    # stripe:Customer customerParams = { description: "First customer", email: "john@gmail.com" };
+    # stripe:Customer|stripe:Error createdCustomer = customers->create(customerParams);
+    # ```
     #
     # + customer - Customer configurations
     # + return - `Customer` record or else a `stripe:Error` in case of a failure
@@ -36,6 +40,9 @@ public type Customers client object {
     }
 
     # Retrieves a customer.
+    # ```ballerina
+    # stripe:Customer|stripe:Error retrievedCustomer = customers->retrieve("<customer-id>"");
+    # ```
     #
     # + customerId - Customer ID
     # + return - `Customer` record or else a `stripe:Error` in case of a failure
@@ -46,6 +53,10 @@ public type Customers client object {
     }
 
     # Updates a customer.
+    # ```ballerina
+    # stripe:Customer customerParams = { email: "john123@gmail.com" };
+    # stripe:Customer|stripe:Error updatedCustomer = customers->update("<customer-id>", customerParams);
+    # ```
     #
     # + customerId - Customer ID
     # + customer - Customer configurations
@@ -58,6 +69,9 @@ public type Customers client object {
     }
 
     # Deletes a customer.
+    # ```ballerina
+    # stripe:Error? deleteCustomer = customers->delete("<customer-id>"");
+    # ```
     #
     # + customerId - Customer ID
     # + return - `()` or else a `stripe:Error` in case of a failure
@@ -68,6 +82,9 @@ public type Customers client object {
     }
 
     # Lists all customers.
+    # ```ballerina
+    # stripe:Customer[]|stripe:Error customersList = customers->list();
+    # ```
     #
     # + return - An array of `Customer` records or else a `stripe:Error` in case of a failure
     public remote function list() returns @tainted Customer[]|Error {
