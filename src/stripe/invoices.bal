@@ -91,7 +91,7 @@ public type Invoices client object {
     # + invoiceId - Invoice ID
     # + autoAdvance - `true` if Stripe performs automatic collection of the invoice or `false`
     # + return - `Invoice` record or a `stripe:Error` in case of a failure
-    public remote function finalize(string invoiceId, boolean? autoAdvance = false) returns @tainted Invoice|Error {
+    public remote function finalize(string invoiceId, public boolean? autoAdvance = false) returns @tainted Invoice|Error {
         string path = INVOICE_PATH + BACK_SLASH + invoiceId + FINALIZE_PATH;
         string queryString = AUTO_ADVANCE + autoAdvance.toString();
         http:Response response = check createPostRequest(self.invoices, queryString, path);
@@ -106,7 +106,7 @@ public type Invoices client object {
     # + invoiceId - Invoice ID
     # + invoicePay - Parameters to be used when paying an invoice
     # + return - `Invoice` record or a `stripe:Error` in case of a failure
-    public remote function pay(string invoiceId, InvoicePay? invoicePay = ()) returns @tainted Invoice|Error {
+    public remote function pay(string invoiceId, public InvoicePay? invoicePay = ()) returns @tainted Invoice|Error {
         string invoicePayQuery = EMPTY;
         string path = INVOICE_PATH + BACK_SLASH + invoiceId + PAY_PATH;
         if (invoicePay is InvoicePay) {
