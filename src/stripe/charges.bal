@@ -79,7 +79,7 @@ public type Charges client object {
     # + chargeId - Charge ID
     # + capture - Capture charge configurations
     # + return - `Charge` record or else a `stripe:Error` if it is already refunded, expired, captured, or an invalid capture amount is specified.
-    public remote function capture(string chargeId, Capture? capture = ()) returns @tainted Charge|Error {
+    public remote function capture(string chargeId, public Capture? capture = ()) returns @tainted Charge|Error {
         string path = CHARGE_PATH + BACK_SLASH + chargeId + CAPTURE_PATH;
         string queryString = EMPTY;
         if (capture is Capture) {
