@@ -14,7 +14,7 @@ The Stripe API uses API keys to authenticate. You can view and manage your API k
 ## Compatibility
 |                     |    Version     |
 |:-------------------:|:--------------:|
-| Ballerina Language  | 1.2.x         |
+| Ballerina Language  | 2.0.0          |
 
 ## Sample
 
