@@ -26,7 +26,6 @@ function mapToInvoiceRecord(http:Response response) returns @tainted Invoice|Err
         check checkForErrorResponse(payload);
         convertJsonToCamelCase(payload);
         Invoice|error invoice = payload.cloneWithType(Invoice);
-        // Invoice|error invoice = Invoice.constructFrom(payload);
         if (invoice is error) {
             return Error("Response cannot be converted to Invoice record", invoice);
         } else {
