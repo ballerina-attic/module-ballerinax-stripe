@@ -22,7 +22,7 @@ public type Products client object {
 
     private http:Client products;
 
-    function __init(http:Client stripeClient) {
+    function init(http:Client stripeClient) {
       self.products = stripeClient;  
     }
 

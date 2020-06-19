@@ -21,7 +21,7 @@ import ballerina/http;
 public type Plans client object {
     private http:Client plans;
     
-    function __init(http:Client stripeClient) {
+    function init(http:Client stripeClient) {
        self.plans = stripeClient;
     }
 

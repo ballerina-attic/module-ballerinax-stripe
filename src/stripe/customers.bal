@@ -21,7 +21,7 @@ import ballerina/http;
 public type Customers client object {
     private http:Client customers;
     
-    function __init(http:Client stripeClient) {
+    function init(http:Client stripeClient) {
        self.customers = stripeClient;
     }
 
@@ -41,7 +41,7 @@ public type Customers client object {
 
     # Retrieves a customer.
     # ```ballerina
-    # stripe:Customer|stripe:Error retrievedCustomer = customers->retrieve("<customer-id>"");
+    # stripe:Customer|stripe:Error retrievedCustomer = customers->retrieve("<customer-id>");
     # ```
     #
     # + customerId - Customer ID
@@ -70,7 +70,7 @@ public type Customers client object {
 
     # Deletes a customer.
     # ```ballerina
-    # stripe:Error? deleteCustomer = customers->delete("<customer-id>"");
+    # stripe:Error? deleteCustomer = customers->delete("<customer-id>");
     # ```
     #
     # + customerId - Customer ID

@@ -16,6 +16,8 @@
 
 import ballerina/http;
 
+type chargeArr Charge[];
+
 function mapToChargeRecord(http:Response response) returns @tainted Charge|Error {
     json|error payload = response.getJsonPayload();
     if (payload is error) {
@@ -23,9 +25,9 @@ function mapToChargeRecord(http:Response response) returns @tainted Charge|Error
     } else {
         check checkForErrorResponse(payload);
         convertJsonToCamelCase(payload);
-        Charge|error charge = Charge.constructFrom(payload);
+        Charge|error charge = payload.cloneWithType(Charge);
         if (charge is error) {
-            return Error(message = "Response cannot be converted to Charge record", cause = charge);
+            return Error("Response cannot be converted to Charge record", charge);
         } else {
             return charge;
         }
@@ -45,9 +47,9 @@ function mapToCharges(http:Response response) returns @tainted Charge[]|Error {
         check checkForErrorResponse(chargesJson);
         json[] chargesJsonArr = <json[]> chargesJson;
         convertJsonArrayToCamelCase(chargesJsonArr);
-        Charge[]|error chargeList = Charge[].constructFrom(chargesJsonArr);
+        Charge[]|error chargeList = chargesJsonArr.cloneWithType(chargeArr);
         if (chargeList is error) {
-            return Error(message = "Response cannot be converted to Charge record array", cause = chargeList);
+            return Error("Response cannot be converted to Charge record array", chargeList);
         } else {
             return chargeList;
         }

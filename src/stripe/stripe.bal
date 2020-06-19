@@ -32,7 +32,7 @@ public type Account object {
     # ```ballerina
     # stripe:Account account = new("<stripeToken>");
     # ```
-    public function __init(string token, Configuration? stripeConfig = ()) {
+    public function init(string token, Configuration? stripeConfig = ()) {
         oauth2:DirectTokenConfig oauth2Config = {
             accessToken: token
         };
