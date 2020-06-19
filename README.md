@@ -13,7 +13,7 @@ The following sections provide you details on how to use the Stripe connector.
 
 |                             |           Version           |
 |:---------------------------:|:---------------------------:|
-| Ballerina Language          |            1.2.x            |
+| Ballerina Language          |   Swan Lake Preview1        |
 
 ## Feature Overview
 
@@ -117,7 +117,7 @@ public function main() {
         description: "This is a blue cup",
         images: ["https://media.gettyimages.com/photos/red-cup-picture-id171368204?s=612x612", "https://i.ytimg.com/vi/3lX0tg7CEJw/maxresdefault.jpg"],
         name: "Blue Cup",
-        package_dimensions: {
+        packageDimensions: {
             height : 3.2,
             weight: 9.8,
             length: 8.7,
