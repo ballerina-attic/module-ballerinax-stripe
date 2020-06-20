@@ -58,12 +58,11 @@ function createDeleteRequest(http:Client stripeClient, string path) returns http
 }
 
 function setResError(error errorResponse) returns Error {
-    return Error(message = "Error received from the Stripe server", cause = errorResponse);
+    return Error("Error received from the Stripe server", errorResponse);
 }
 
 function setJsonResError(error errorResponse) returns Error {
-    return Error(message = "Error occurred while accessing the JSON payload of the response", 
-                        cause = errorResponse);
+    return Error("Error occurred while accessing the JSON payload of the response", errorResponse);
 }
 
 function checkDeleteResponse(http:Response response) returns Error? {
@@ -77,7 +76,7 @@ function checkDeleteResponse(http:Response response) returns Error? {
             if (message is string) {
                 return <@untainted> setJsonResError(error(message));
             } else {
-                return Error(message = "Error occurred while accessing the JSON payload of the response");
+                return Error("Error occurred while accessing the JSON payload of the response");
             }           
         } else {
             if (deleted.toString() == "true") {
@@ -92,7 +91,7 @@ function checkForErrorResponse(json jsonResp) returns Error? {
     if (errorResp is error) {
         return ();
     } else {    
-        return Error(message = errorResp.toJsonString());
+        return Error(errorResp.toJsonString());
     }
 }
 

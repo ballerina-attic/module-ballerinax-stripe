@@ -16,6 +16,8 @@
 
 import ballerina/http;
 
+type invoiceArr Invoice[];
+
 function mapToInvoiceRecord(http:Response response) returns @tainted Invoice|Error {
     json|error payload = response.getJsonPayload();
     if (payload is error) {
@@ -23,9 +25,9 @@ function mapToInvoiceRecord(http:Response response) returns @tainted Invoice|Err
     } else {
         check checkForErrorResponse(payload);
         convertJsonToCamelCase(payload);
-        Invoice|error invoice = Invoice.constructFrom(payload);
+        Invoice|error invoice = payload.cloneWithType(Invoice);
         if (invoice is error) {
-            return Error(message = "Response cannot be converted to Invoice record", cause = invoice);
+            return Error("Response cannot be converted to Invoice record", invoice);
         } else {
             return invoice;
         }
@@ -45,9 +47,10 @@ function mapToInvoices(http:Response response) returns @tainted Invoice[]|Error 
         check checkForErrorResponse(invoicesJson);
         json[] invoiceJsonArr = <json[]> invoicesJson;
         convertJsonArrayToCamelCase(invoiceJsonArr);
-        Invoice[]|error invoicesList = Invoice[].constructFrom(invoiceJsonArr);
+
+        Invoice[]|error invoicesList = invoiceJsonArr.cloneWithType(invoiceArr);
         if (invoicesList is error) {
-            return Error(message = "Response cannot be converted to Invoice record array", cause = invoicesList);
+            return Error("Response cannot be converted to Invoice record array", invoicesList);
         } else {
             return invoicesList;
         }
@@ -61,9 +64,9 @@ function mapToInvoiceItemRecord(http:Response response) returns @tainted Invoice
     } else {
         check checkForErrorResponse(payload);
         convertJsonToCamelCase(payload);
-        InvoiceItem|error invoiceItem = InvoiceItem.constructFrom(payload);
+        InvoiceItem|error invoiceItem = payload.cloneWithType(InvoiceItem);
         if (invoiceItem is error) {
-            return Error(message = "Response cannot be converted to InvoiceItem record", cause = invoiceItem);
+            return Error("Response cannot be converted to InvoiceItem record", invoiceItem);
         } else {
             return invoiceItem;
         }

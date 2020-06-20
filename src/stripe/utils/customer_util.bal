@@ -16,6 +16,8 @@
 
 import ballerina/http;
 
+type customerArr Customer[];
+
 function mapToCustomerRecord(http:Response response) returns @tainted Customer|Error {
     json|error payload = response.getJsonPayload();
     if (payload is error) {
@@ -23,9 +25,9 @@ function mapToCustomerRecord(http:Response response) returns @tainted Customer|E
     } else {
         check checkForErrorResponse(payload);
         convertJsonToCamelCase(payload);
-        Customer|error customer = Customer.constructFrom(payload);
+        Customer|error customer = payload.cloneWithType(Customer);
         if (customer is error) {
-            return Error(message = "Response cannot be converted to Customer record", cause = customer);
+            return Error("Response cannot be converted to Customer record", customer);
         } else {
             return customer;
         }
@@ -45,9 +47,9 @@ function mapToCustomers(http:Response response) returns @tainted Customer[]|Erro
         check checkForErrorResponse(customersJson);
         json[] customerJsonArr = <json[]> customersJson;
         convertJsonArrayToCamelCase(customerJsonArr);
-        Customer[]|error customerList = Customer[].constructFrom(customerJsonArr);
+        Customer[]|error customerList = customerJsonArr.cloneWithType(customerArr);
         if (customerList is error) {
-            return Error(message = "Response cannot be converted to Customers record array", cause = customerList);
+            return Error("Response cannot be converted to Customers record array", customerList);
         } else {
             return customerList;
         }

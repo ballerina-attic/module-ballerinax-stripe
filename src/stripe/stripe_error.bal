@@ -14,17 +14,5 @@
 // specific language governing permissions and limitations
 // under the License.
 
-# Record type to hold the details of an error.
-#
-# + message - Specific error message of the error
-# + cause - Any other error, which causes this error
-public type Detail record {
-    string message;
-    error cause?;
-};
-
-# Represents the Stripe error reason.
-public const STRIPE_ERROR = "(ballerinax/stripe)Error";
-
-# Represents the Stripe error type with details.
-public type Error error<STRIPE_ERROR, Detail>;
+# Represents the Stripe error.
+public type Error distinct error;

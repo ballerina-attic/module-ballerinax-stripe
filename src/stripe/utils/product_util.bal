@@ -16,6 +16,8 @@
 
 import ballerina/http;
 
+type productArr Product[];
+
 function mapToProductRecord(http:Response response) returns @tainted Product|Error {
     json|error payload = response.getJsonPayload();
     if (payload is error) {
@@ -23,9 +25,9 @@ function mapToProductRecord(http:Response response) returns @tainted Product|Err
     } else {
         check checkForErrorResponse(payload);
         convertJsonToCamelCase(payload);
-        Product|error product = Product.constructFrom(payload);
+        Product|error product = payload.cloneWithType(Product);
         if (product is error) {
-            return Error(message = "Response cannot be converted to Product record", cause = product);
+            return Error("Response cannot be converted to Product record", product);
         } else {
             return product;
         }
@@ -45,9 +47,9 @@ function mapToProducts(http:Response response) returns @tainted Product[]|Error 
         check checkForErrorResponse(productsJson);
         json[] productJsonArr = <json[]> productsJson;
         convertJsonArrayToCamelCase(productJsonArr);
-        Product[]|error productList = Product[].constructFrom(productJsonArr);
+        Product[]|error productList = productJsonArr.cloneWithType(productArr);
         if (productList is error) {
-            return Error(message = "Response cannot be converted to Product record array", cause = productList);
+            return Error("Response cannot be converted to Product record array", productList);
         } else {
             return productList;
         }

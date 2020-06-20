@@ -22,7 +22,7 @@ import ballerina/stringutils;
 public type Subscriptions client object {
    private http:Client subscriptions;
    
-   function __init(http:Client stripeClient) {
+   function init(http:Client stripeClient) {
       self.subscriptions = stripeClient;
    }
 

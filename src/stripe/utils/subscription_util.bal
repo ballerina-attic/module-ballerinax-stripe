@@ -16,16 +16,18 @@
 
 import ballerina/http;
 
+type subscriptionArr Subscription[];
+
 function mapToSubscriptionRecord(http:Response response) returns @tainted Subscription|Error {
     json|error payload = response.getJsonPayload();
     if (payload is error) {
         return setJsonResError(payload);
     } else {
         check checkForErrorResponse(payload);    
-        convertJsonToCamelCase(payload);   
-        Subscription|error subscription = Subscription.constructFrom(payload);
+        convertJsonToCamelCase(payload);
+        Subscription|error subscription = payload.cloneWithType(Subscription);
         if (subscription is error) {
-            return Error(message = "Response cannot be converted to Subscription record", cause = subscription);
+            return Error("Response cannot be converted to Subscription record", subscription);
         } else {
             return subscription;
         }
@@ -45,9 +47,9 @@ function mapToSubscriptions(http:Response response) returns @tainted Subscriptio
         check checkForErrorResponse(subscriptionsJson);
         json[] subscriptionsJsonArr = <json[]> subscriptionsJson;
         convertJsonArrayToCamelCase(subscriptionsJsonArr);
-        Subscription[]|error subscriptionsList = Subscription[].constructFrom(subscriptionsJsonArr);
+        Subscription[]|error subscriptionsList = subscriptionsJsonArr.cloneWithType(subscriptionArr);
         if (subscriptionsList is error) {
-            return Error(message = "Response cannot be converted to Subscription record array", cause = subscriptionsList);
+            return Error("Response cannot be converted to Subscription record array", subscriptionsList);
         } else {
             return subscriptionsList;
         }

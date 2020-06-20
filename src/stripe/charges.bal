@@ -23,7 +23,7 @@ public type Charges client object {
 
     private http:Client charges;
 
-    function __init(http:Client stripeClient) {
+    function init(http:Client stripeClient) {
        self.charges = stripeClient;
     }
 

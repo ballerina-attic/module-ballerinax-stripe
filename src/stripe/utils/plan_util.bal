@@ -16,6 +16,8 @@
 
 import ballerina/http;
 
+type planArr Plan[];
+
 function mapToPlanRecord(http:Response response) returns @tainted Plan|Error {
     json|error payload = response.getJsonPayload();
     if (payload is error) {
@@ -23,9 +25,9 @@ function mapToPlanRecord(http:Response response) returns @tainted Plan|Error {
     } else {
         check checkForErrorResponse(payload);
         convertJsonToCamelCase(payload);
-        Plan|error plan = Plan.constructFrom(payload);
+        Plan|error plan = payload.cloneWithType(Plan);
         if (plan is error) {
-            return Error(message = "Response cannot be converted to Plan record", cause = plan);
+            return Error("Response cannot be converted to Plan record", plan);
         } else {
             return plan;
         }
@@ -45,9 +47,9 @@ function mapToPlans(http:Response response) returns @tainted Plan[]|Error {
         check checkForErrorResponse(plansJson);
         json[] planJsonArr = <json[]> plansJson;
         convertJsonArrayToCamelCase(planJsonArr);
-        Plan[]|error plansList = Plan[].constructFrom(planJsonArr);
+        Plan[]|error plansList = planJsonArr.cloneWithType(planArr);
         if (plansList is error) {
-            return Error(message = "Response cannot be converted to Plan record array", cause = plansList);
+            return Error("Response cannot be converted to Plan record array", plansList);
         } else {
             return plansList;
         }

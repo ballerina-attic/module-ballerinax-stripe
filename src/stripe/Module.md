@@ -12,9 +12,9 @@ The Stripe API uses API keys to authenticate. You can view and manage your API k
 7. **stripe.Subscriptions** - Represents the Subscriptions in Stripe. This acts as a client to create, retrieve, update, delete, and list the subscriptions in a Stripe Account.
 
 ## Compatibility
-|                     |    Version     |
-|:-------------------:|:--------------:|
-| Ballerina Language  | 1.2.x         |
+|                     |      Version       |
+|:-------------------:|:------------------:|
+| Ballerina Language  | Swan Lake Preview1 |
 
 ## Sample
 
@@ -123,7 +123,7 @@ stripe:Product productParams = {
     description: "This is a blue cup",
     images: ["https://media.gettyimages.com/photos/red-cup-picture-id171368204?s=612x612", "https://i.ytimg.com/vi/3lX0tg7CEJw/maxresdefault.jpg"],
     name: "Blue Cup",
-    package_dimensions: {
+    packageDimensions: {
         height : 3.2,
         weight: 9.8,
         length: 8.7,
