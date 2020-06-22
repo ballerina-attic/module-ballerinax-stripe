@@ -68,7 +68,7 @@ if (response is stripe:Customer) {
         io:println("Customer created. Name = " + customerId);
     }
 } else {
-    io:println("Error" + response.detail()?.message.toString());
+    io:println("Error" + response.message());
 }
 ```
 
@@ -85,7 +85,7 @@ if (capturedCharge is stripe:Charge) {
         io:println("Captured charge. Id = " + chargeId);
     }
 } else {
-    io:println("Error" + capturedCharge.detail()?.message.toString());
+    io:println("Error" + capturedCharge.message());
 }
 ```
 
@@ -107,7 +107,7 @@ if (invoice is stripe:Invoice) {
         io:println("Invoice created. Id = " + invoiceId);
     }
 } else {
-    io:println("Error" + invoice.detail()?.message.toString());
+    io:println("Error" + invoice.message());
 }
 ```
 
@@ -141,7 +141,7 @@ if (product is stripe:Product) {
         io:println("Product created. Id = " + productId);
     }
 } else {
-    io:println("Error" + product.detail()?.message.toString());
+    io:println("Error" + product.message());
 }
 ```
 
@@ -158,7 +158,7 @@ if (plan is stripe:Plan) {
         io:println("Plan information. Id " + planId);
     }
 } else {
-    io:println("Error" + plan.detail()?.message.toString());
+    io:println("Error" + plan.message());
 }
 ```
 
@@ -175,6 +175,6 @@ if (canceledSubscription is stripe:Subscription) {
         io:println("Canceled subscription. Id " + subscriptionId);
     }
 } else {
-    io:println("Error" + canceledSubscription.detail()?.message.toString());
+    io:println("Error" + canceledSubscription.message());
 }
 ```

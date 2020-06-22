@@ -77,7 +77,7 @@ public function main() {
             io:println("Customer created. Name = " + customerId);
         }
     } else {
-        io:println("Error" + customer.detail()?.message.toString());
+        io:println("Error" + customer.message());
     }
 
     // Capture the payment of an existing, uncaptured, charge 
@@ -89,7 +89,7 @@ public function main() {
             io:println("Captured charge. Id = " + chargeId);
         }
     } else {
-        io:println("Error" + capturedCharge.detail()?.message.toString());
+        io:println("Error" + capturedCharge.message());
     }
 
     // Create an invoice.
@@ -106,7 +106,7 @@ public function main() {
             io:println("Invoice created. Id = " + invoiceId);
         }
     } else {
-        io:println("Error" + invoice.detail()?.message.toString());
+        io:println("Error" + invoice.message());
     }
 
     // Create a product.
@@ -135,7 +135,7 @@ public function main() {
             io:println("Product created. Id = " + productId);
         }
     } else {
-        io:println("Error" + product.detail()?.message.toString());
+        io:println("Error" + product.message());
     }
 
     // Retrieve details of a billing plan.
@@ -147,7 +147,7 @@ public function main() {
             io:println("Plan information. Id " + planId);
         }
     } else {
-        io:println("Error" + plan.detail()?.message.toString());
+        io:println("Error" + plan.message());
     }
 
     // Cancel a subscription.
@@ -159,7 +159,7 @@ public function main() {
             io:println("Canceled subscription. Id " + subscriptionId);
         }
     } else {
-        io:println("Error" + canceledSubscription.detail()?.message.toString());
+        io:println("Error" + canceledSubscription.message());
     }
 }
 ```
